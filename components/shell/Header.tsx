@@ -60,6 +60,22 @@ export function Header() {
     };
   }, [open]);
 
+  // Let the browser / device Back button close the menu instead of navigating
+  // away. Opening pushes a throwaway history entry; Back pops it and closes the
+  // menu. Closing via the ✕ or a link removes that entry so history stays clean.
+  useEffect(() => {
+    if (!open) return;
+    window.history.pushState({ navMenu: true }, "");
+    const onPop = () => setOpen(false);
+    window.addEventListener("popstate", onPop);
+    return () => {
+      window.removeEventListener("popstate", onPop);
+      if (window.history.state?.navMenu) {
+        window.history.back();
+      }
+    };
+  }, [open]);
+
   return (
     <>
       <header
