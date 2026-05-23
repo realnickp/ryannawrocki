@@ -1,0 +1,17 @@
+node_modules
+.next
+.vercel
+.env*.local
+.DS_Store
+*.log
+
+# build cache
+tsconfig.tsbuildinfo
+
+# local tooling / agent scratch
+.claude/settings.local.json
+.firecrawl/
+.playwright-mcp/
+
+# heavy unused source video (site uses public/hero/hero-clip.mp4 instead)
+public/videos/hero.mp4
