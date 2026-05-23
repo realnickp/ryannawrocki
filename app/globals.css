@@ -936,6 +936,17 @@ body {
     letter-spacing: -0.01em;
     color: var(--navy-ink);
   }
+  /* The Donate pill must keep its own button styling — the generic overlay
+     link rule above otherwise turns its label navy (invisible on the navy
+     pill) and 2rem-sized. */
+  .hdr-light__overlay a.btn-donate {
+    color: #fff;
+    font-family: var(--font-body), Inter, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    margin-top: 8px;
+  }
   .hdr-light__overlay-close {
     position: absolute;
     top: 22px;
