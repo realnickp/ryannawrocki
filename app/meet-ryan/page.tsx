@@ -4,15 +4,8 @@ import { site } from "@/data/site";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Underline } from "@/components/home/Underline";
 import { RevealImage } from "@/components/home/RevealImage";
-import { FeatureBand } from "@/components/home/FeatureBand";
-import { CountUp } from "@/components/home/CountUp";
 import { InteriorHero } from "@/components/interior/InteriorHero";
 import { CtaBand } from "@/components/interior/CtaBand";
-import {
-  FaithGlyph,
-  StarGlyph,
-  GovernmentGlyph,
-} from "@/components/home/Glyphs";
 
 export const metadata: Metadata = {
   title: "Meet Ryan",
@@ -40,12 +33,6 @@ function Arrow() {
     </svg>
   );
 }
-
-const stats = [
-  { value: 6, suffix: "", count: true, label: "Children at home in Middle River", Glyph: FaithGlyph },
-  { value: 40, suffix: "", count: true, label: "Named to the Daily Record VIP List — 40 Under 40", Glyph: StarGlyph },
-  { value: 2022, suffix: "", count: false, label: "Elected to the Maryland House of Delegates", Glyph: GovernmentGlyph },
-];
 
 const committees = [
   "Energy Subcommittee",
@@ -198,43 +185,6 @@ export default function MeetRyanPage() {
           </div>
         </div>
       </section>
-
-      {/* ── By the numbers ───────────────────────────────── */}
-      <FeatureBand
-        bgSrc="/images/580541720_1253084943304523_5959235873528429245_n.jpg"
-        bgOpacity={0.16}
-        bgPosition="center 30%"
-      >
-        <div className="mx-auto max-w-[1180px] px-6 py-20 md:px-10 md:py-24">
-          <Reveal>
-            <div className="gold-tick" />
-            <p className="eyebrow eyebrow--light mt-5">By the Numbers</p>
-            <h2 className="mt-3 max-w-2xl font-display text-3xl font-extrabold leading-[1.05] tracking-tight text-white md:text-[2.75rem]">
-              A life built in Baltimore County.
-            </h2>
-          </Reveal>
-          <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-3 md:gap-x-16">
-            {stats.map((s, i) => (
-              <Reveal key={s.label} delay={i * 0.08}>
-                <div className="icon-chip icon-chip--gold icon-chip--mini">
-                  <s.Glyph size={20} />
-                </div>
-                <p className="stat-figure mt-5">
-                  {s.count === false ? (
-                    s.value
-                  ) : (
-                    <CountUp value={s.value} suffix={s.suffix} />
-                  )}
-                </p>
-                <div className="mt-4 h-px w-12 bg-gradient-to-r from-brand-gold to-transparent" />
-                <p className="mt-4 text-sm leading-snug text-white/65">
-                  {s.label}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </FeatureBand>
 
       {/* ── In the House of Delegates ────────────────────── */}
       <section className="bg-white">
