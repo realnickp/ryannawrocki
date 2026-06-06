@@ -89,23 +89,6 @@ export function Footer() {
                   {site.campaignEmail}
                 </a>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-wider text-brand-slate/70">
-                  Annapolis Office
-                </p>
-                <a
-                  href={`tel:${site.officePhone}`}
-                  className="block text-brand-navy hover:text-brand-maroon"
-                >
-                  {site.officePhone}
-                </a>
-                <a
-                  href={`mailto:${site.officeEmail}`}
-                  className="block break-all text-brand-maroon hover:underline"
-                >
-                  {site.officeEmail}
-                </a>
-              </div>
             </div>
             <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
               {socials.map(([label, href]) => (

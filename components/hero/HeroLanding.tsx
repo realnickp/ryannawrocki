@@ -95,7 +95,7 @@ export function HeroLanding() {
             <Link href="/meet-ryan" className="btn-maroon">
               Learn More <Arrow />
             </Link>
-            <Link href="/get-involved" className="btn-outline-navy">
+            <Link href="/contact" className="btn-outline-navy">
               Get Involved <Arrow />
             </Link>
           </div>

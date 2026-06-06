@@ -1,7 +1,7 @@
 export const site = {
   url: "https://ryannawrocki.com",
   campaignName: "Friends of Ryan Nawrocki",
-  authorityLine: "Authority: Friends of Ryan Nawrocki, Amanda Williams, Treasurer",
+  authorityLine: "Authority: Friends of Ryan Nawrocki, Lauren Nawrocki, Treasurer",
   brandPromise:
     "Husband. Father of 6. Small-business owner. Fighting for faith, freedom, and strong communities across Maryland.",
   officePromise: "My office is here to serve you.",
@@ -13,6 +13,7 @@ export const site = {
   district: "Maryland House of Delegates · District 7A",
   districtAreas: [
     "Middle River",
+    "Bowleys Quarters",
     "Perry Hall",
     "White Marsh",
     "Kingsville",

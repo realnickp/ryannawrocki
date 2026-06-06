@@ -3,7 +3,7 @@ import { HeroLanding } from "@/components/hero/HeroLanding";
 import { Reveal } from "@/components/primitives/Reveal";
 import { CountUp } from "@/components/home/CountUp";
 import { FeatureBand } from "@/components/home/FeatureBand";
-import { PhotoMarquee } from "@/components/home/PhotoMarquee";
+import { CommunityMarquee } from "@/components/home/CommunityMarquee";
 import { ValueMarquee } from "@/components/home/ValueMarquee";
 import { VideoBand } from "@/components/home/VideoBand";
 import { RevealImage } from "@/components/home/RevealImage";
@@ -18,7 +18,6 @@ import {
   SchoolsGlyph,
   FaithGlyph,
 } from "@/components/home/Glyphs";
-import { PriorityStack } from "@/components/home/PriorityStack";
 import { site } from "@/data/site";
 import { priorities } from "@/data/priorities";
 import { issues } from "@/data/issues";
@@ -78,19 +77,19 @@ const stats = [
     Glyph: SchoolsGlyph,
   },
   {
-    prefix: "",
-    value: 6,
-    suffix: "",
-    label: "Kids at home in Middle River",
-    Glyph: FaithGlyph,
+    prefix: "$",
+    value: 10,
+    suffix: "M+",
+    label: "In state bond funding secured this year alone",
+    Glyph: BriefcaseGlyph,
   },
 ];
 
 const recordHighlights = [
   "Bipartisan Inspectors General reform to strengthen oversight.",
-  "More than 250 scholarships awarded to District 7 students.",
-  "Ride-alongs with Baltimore County police and a steady presence at community events.",
-  "A consistent vote against new taxes and fees on working families.",
+  "A property tax credit for all volunteer fire departments in Baltimore County.",
+  "A property tax credit for police.",
+  "Voted against ALL tax and fee increases on working families.",
 ];
 
 const credentials = [
@@ -153,9 +152,9 @@ export default function HomePage() {
           <Reveal>
             <p className="eyebrow">Husband · Father of Six · Delegate</p>
             <h2 className="h-section mt-4">
-              A neighbor fighting for{" "}
+              Fighting for{" "}
               <span className="whitespace-nowrap">
-                <Underline>Eastern Baltimore County</Underline>.
+                <Underline>Baltimore County</Underline>.
               </span>
             </h2>
             <div className="mt-6 max-[900px]:hidden">
@@ -227,7 +226,7 @@ export default function HomePage() {
               A district worth fighting for.
             </h2>
           </Reveal>
-          <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4">
+          <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 md:gap-x-16">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.08}>
                 <div className="icon-chip icon-chip--gold icon-chip--mini">
@@ -308,10 +307,32 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Mobile: sticky stacking deck */}
-          <div className="min-[901px]:hidden">
-            <PriorityStack />
-          </div>
+          {/* Mobile: simple, scannable list — no sticky stacking */}
+          <ol className="space-y-3 min-[901px]:hidden">
+            {priorities.map((p, i) => (
+              <Reveal key={p.slug} delay={Math.min(i, 4) * 0.04} as="li">
+                <Link
+                  href={`/priorities#${p.slug}`}
+                  className="card-soft flex items-center gap-4 p-4"
+                >
+                  <div className="icon-chip icon-chip--soft icon-chip--mini flex-shrink-0">
+                    <PriorityGlyph slug={p.slug} size={22} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-brand-maroon">
+                      {p.numeral}
+                    </p>
+                    <h3 className="mt-0.5 font-display text-[15px] font-bold leading-snug text-brand-navy">
+                      {p.title}
+                    </h3>
+                  </div>
+                  <span className="flex-shrink-0 text-brand-maroon">
+                    <Arrow />
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -320,7 +341,7 @@ export default function HomePage() {
         src="/hero/hero-clip.mp4"
         poster="/images/645446748_1339363261343357_6092768245358700287_n.jpg"
         kicker="From the Floor in Annapolis"
-        quote="Every vote I take starts with one question — does it serve the families of District 7A?"
+        quote="Every vote I take starts with one question — does it make life safer, freer, and more prosperous for the families of District 7A?"
         cite="Ryan Nawrocki · Delegate, Maryland District 7A"
       />
 
@@ -357,14 +378,6 @@ export default function HomePage() {
                 frameClassName="photo-frame aspect-[4/3] w-full"
                 imgClassName="h-full w-full object-cover"
               />
-              <div className="absolute -bottom-6 -right-4 z-10 flex items-center gap-3.5 rounded-2xl bg-brand-maroon px-5 py-4 shadow-[0_18px_40px_rgba(138,16,32,0.32)]">
-                <span className="font-display text-4xl font-extrabold leading-none text-white">
-                  250<span className="text-brand-gold">+</span>
-                </span>
-                <span className="max-w-[9ch] text-[11px] font-semibold uppercase leading-tight tracking-[0.12em] text-white/85">
-                  Scholarships awarded
-                </span>
-              </div>
             </div>
           </Reveal>
         </div>
@@ -381,10 +394,7 @@ export default function HomePage() {
             </h2>
           </Reveal>
         </div>
-        <div className="flex flex-col gap-5">
-          <PhotoMarquee shots={galleryRowA} />
-          <PhotoMarquee shots={galleryRowB} reverse />
-        </div>
+        <CommunityMarquee shots={[...galleryRowA, ...galleryRowB]} />
       </section>
 
       {/* ── Updates ───────────────────────────────────── */}
@@ -454,8 +464,7 @@ export default function HomePage() {
               table.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base text-white/75">
-              Contribute, volunteer, or request a yard sign — it all makes a
-              difference.
+              This grassroots campaign could not be possible without your help.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
@@ -466,7 +475,7 @@ export default function HomePage() {
               >
                 Contribute <Arrow />
               </a>
-              <Link href="/get-involved" className="btn-outline-light">
+              <Link href="/contact" className="btn-outline-light">
                 Get Involved <Arrow />
               </Link>
             </div>

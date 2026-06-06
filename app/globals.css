@@ -1572,7 +1572,7 @@ body {
   .stat-figure {
     font-family: var(--font-display), Inter, sans-serif;
     font-weight: 800;
-    font-size: clamp(2.5rem, 4.4vw, 3.75rem);
+    font-size: clamp(2.75rem, 4.6vw, 4rem);
     line-height: 0.95;
     letter-spacing: -0.035em;
     color: #fff;
@@ -2829,6 +2829,11 @@ body {
   }
   .pstack__item:last-child {
     margin-bottom: 0;
+  }
+  /* Priorities page (detailed) reads top-to-bottom in normal flow — no sticky
+     stacking deck, which Ryan found hard to follow. */
+  .pstack--detailed .pstack__item {
+    position: static;
   }
 
   .pstack__card {

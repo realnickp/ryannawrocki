@@ -19,11 +19,13 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 const subjects = [
-  "Constituent service",
-  "State agency assistance",
-  "Scholarship inquiry",
-  "Press inquiry",
-  "Legislative question",
+  "Volunteer",
+  "Order a yard sign",
+  "Host a large sign",
+  "Invite Ryan to an event",
+  "Ask a question",
+  "Media inquiry",
+  "Contribution question",
   "Other",
 ];
 
@@ -59,8 +61,8 @@ export function ContactForm() {
           We&rsquo;ll be in touch.
         </p>
         <p className="mt-4 text-[15px] leading-relaxed text-brand-slate">
-          The office reviews constituent messages within a few business days.
-          For urgent matters, please call our Annapolis office directly.
+          The campaign team reviews messages within a few business days. For
+          urgent matters, please call the campaign directly.
         </p>
       </div>
     );
@@ -124,7 +126,7 @@ export function ContactForm() {
       {status === "error" ? (
         <p className="form-error">
           Something went wrong sending your message. Please try again or call
-          the office.
+          the campaign.
         </p>
       ) : null}
 

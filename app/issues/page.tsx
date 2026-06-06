@@ -133,9 +133,9 @@ export default function IssuesIndex() {
         }
         lede="The fights from the floor, the committee room, and the neighborhood — public safety, lower costs, reliable energy, and local control. Each piece below is published in the delegate's own words, with the receipts."
         media={{
-          src: "/images/569760336_1241608057785545_2659619059895616197_n.jpg",
-          alt: "Ryan with fellow legislators and community leaders",
-          objectPosition: "center 22%",
+          src: "/images/642865957_1334736615139355_8979806438955097043_n.jpg",
+          alt: "Ryan speaking at a Maryland Freedom Caucus press conference on lower electric bills",
+          objectPosition: "center 25%",
         }}
       />
 
@@ -323,7 +323,7 @@ export default function IssuesIndex() {
         >
           Contribute <Arrow />
         </a>
-        <Link href="/get-involved" className="btn-outline-light">
+        <Link href="/contact" className="btn-outline-light">
           Get Involved <Arrow />
         </Link>
       </CtaBand>

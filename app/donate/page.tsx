@@ -144,7 +144,7 @@ export default function DonatePage() {
         >
           Contribute <Arrow />
         </a>
-        <a href="/get-involved" className="btn-outline-light">
+        <a href="/contact" className="btn-outline-light">
           Volunteer or Sign Up <Arrow />
         </a>
       </CtaBand>
