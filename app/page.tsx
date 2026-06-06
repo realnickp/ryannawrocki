@@ -4,6 +4,7 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { CountUp } from "@/components/home/CountUp";
 import { FeatureBand } from "@/components/home/FeatureBand";
 import { CommunityMarquee } from "@/components/home/CommunityMarquee";
+import { MobilePriorityList } from "@/components/home/MobilePriorityList";
 import { ValueMarquee } from "@/components/home/ValueMarquee";
 import { VideoBand } from "@/components/home/VideoBand";
 import { RevealImage } from "@/components/home/RevealImage";
@@ -265,7 +266,7 @@ export default function HomePage() {
                 An accountable government. Every vote starts with one question —
                 does it serve District 7A?
               </p>
-              <Link href="/priorities" className="btn-maroon mt-8">
+              <Link href="/priorities" className="btn-maroon mt-8 max-[900px]:hidden">
                 See All Priorities <Arrow />
               </Link>
             </Reveal>
@@ -307,32 +308,8 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Mobile: simple, scannable list — no sticky stacking */}
-          <ol className="space-y-3 min-[901px]:hidden">
-            {priorities.map((p, i) => (
-              <Reveal key={p.slug} delay={Math.min(i, 4) * 0.04} as="li">
-                <Link
-                  href={`/priorities#${p.slug}`}
-                  className="card-soft flex items-center gap-4 p-4"
-                >
-                  <div className="icon-chip icon-chip--soft icon-chip--mini flex-shrink-0">
-                    <PriorityGlyph slug={p.slug} size={22} />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-brand-maroon">
-                      {p.numeral}
-                    </p>
-                    <h3 className="mt-0.5 font-display text-[15px] font-bold leading-snug text-brand-navy">
-                      {p.title}
-                    </h3>
-                  </div>
-                  <span className="flex-shrink-0 text-brand-maroon">
-                    <Arrow />
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </ol>
+          {/* Mobile: tap a card to expand a short summary inline */}
+          <MobilePriorityList />
         </div>
       </section>
 
