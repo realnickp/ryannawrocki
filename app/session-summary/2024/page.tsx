@@ -154,7 +154,7 @@ export default function SessionSummary2024() {
               What we tracked. What we opposed.
             </h2>
           </Reveal>
-          <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4">
+          <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 md:gap-x-16">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.08}>
                 <div className="icon-chip icon-chip--gold icon-chip--mini">

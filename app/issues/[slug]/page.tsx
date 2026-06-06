@@ -353,7 +353,7 @@ export default function IssuePage({ params }: { params: Params }) {
         >
           Contribute <Arrow />
         </a>
-        <Link href="/get-involved" className="btn-outline-light">
+        <Link href="/contact" className="btn-outline-light">
           Get Involved <Arrow />
         </Link>
       </CtaBand>

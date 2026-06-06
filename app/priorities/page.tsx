@@ -53,7 +53,7 @@ export default function PrioritiesPage() {
         }}
       />
 
-      {/* ── All 10 priorities — sticky stacking deck (full width) ──── */}
+      {/* ── All 10 priorities (full width) ──── */}
       <section className="tex-grid">
         <div className="px-4 py-16 sm:px-6 md:px-10 md:py-24">
           <PriorityStack detailed />
@@ -76,7 +76,7 @@ export default function PrioritiesPage() {
         >
           Contribute <Arrow />
         </a>
-        <Link href="/get-involved" className="btn-outline-light">
+        <Link href="/contact" className="btn-outline-light">
           Get Involved <Arrow />
         </Link>
       </CtaBand>

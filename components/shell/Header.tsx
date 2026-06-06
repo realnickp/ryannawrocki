@@ -7,11 +7,11 @@ import { site } from "@/data/site";
 import { cn } from "@/lib/cn";
 
 const heroNav = [
+  { href: "/", label: "Home" },
   { href: "/meet-ryan", label: "About" },
   { href: "/priorities", label: "Priorities" },
   { href: "/issues", label: "News" },
   { href: "/events", label: "Events" },
-  { href: "/get-involved", label: "Get Involved" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -29,7 +29,6 @@ export function Header() {
     "/record",
     "/issues",
     "/events",
-    "/get-involved",
     "/contact",
     "/scholarships",
     "/press",
@@ -97,18 +96,23 @@ export function Header() {
           </Link>
 
           <nav className="hdr-light__nav" aria-label="Primary">
-            {heroNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="nav-light"
-                data-active={
-                  pathname === item.href || pathname?.startsWith(item.href)
-                }
-              >
-                {item.label}
-              </Link>
-            ))}
+            {heroNav.map((item) => {
+              const active =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href ||
+                    pathname?.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-light"
+                  data-active={active}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="hdr-light__actions">

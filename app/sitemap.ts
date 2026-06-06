@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/scholarships",
     "/press",
     "/contact",
-    "/get-involved",
     "/donate",
     "/session-summary/2024",
   ];

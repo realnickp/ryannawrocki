@@ -37,7 +37,7 @@ export const priorities: Priority[] = [
     summary:
       "Marylanders shouldn’t have to choose between paying the BGE bill and putting food on the table. Ryan stands for a diversified, reliable energy portfolio and against policies that push utility costs higher than families can handle.",
     delivered: [
-      "Helped lead the public opposition to the Piedmont power-line project routed through District 7A farmland.",
+      "Led the fight against the Piedmont and Brandon Shores power-line projects routed through District 7A farmland.",
       "Demanded the Maryland Public Service Commission hear from rural and suburban Baltimore County residents.",
       "Advocated for keeping Brandon Shores online to preserve grid reliability.",
     ],
@@ -56,7 +56,8 @@ export const priorities: Priority[] = [
     delivered: [
       "Rode along with Baltimore County Precinct units to hear directly from officers on the front line.",
       "Backed legislation strengthening penalties for repeat offenders and juvenile carjackers.",
-      "Joined the Eastern Avenue safety push with Senator Jennings, Delegate Szeliga, and Councilman Marks.",
+      "Joined the Eastern Avenue safety push alongside Delegate Szeliga.",
+      "Secured $15M for a new Middle River fire department, $2.5M in new equipment for Long Green, and more than $1M for the Bowleys Quarters Volunteer Fire Department.",
     ],
     next: [
       "Fully fund local police and Sheriff’s deputies.",
@@ -66,36 +67,37 @@ export const priorities: Priority[] = [
   },
   {
     numeral: "04",
-    slug: "election-integrity",
-    title: "Election integrity.",
+    slug: "strong-schools-opportunity",
+    title: "Strong schools & opportunity for students.",
     summary:
-      "Every Marylander deserves an election system they can trust. Ryan supports commonsense ballot verification, transparent processes, and the same standards we apply to nearly every other part of public life.",
+      "Every child in District 7A deserves a school that prepares them for life — whether that’s a four-year college, a trade, a career, or the military. Ryan supports high standards, strong career & technical education, real facility investment, and parents’ rightful place in their children’s education.",
     delivered: [
-      "Co-sponsored legislation to tighten signature verification on mail-in ballots.",
-      "Voted for stronger chain-of-custody requirements at drop boxes.",
-      "Supported audits and transparency reforms in the State Board of Elections.",
+      "Awarded more than $100,000 in Maryland Legislative Scholarships every year — and more than 250 scholarships to District 7 students to date. [TODO: confirm cumulative vs. annual count]",
+      "Pushed for capital funding to address overcrowding at schools like Perry Hall High.",
+      "Backed expanded career and technical education in Baltimore County schools.",
     ],
     next: [
-      "Continue pushing for photo-ID at the polls — making it easier to vote and harder to cheat.",
-      "Demand cleaner, more accurate voter rolls.",
-      "Champion clear, public reporting of election results and procedures.",
+      "Keep growing investment in CTE and workforce-ready high school pathways.",
+      "Fight to fix and replace crumbling school facilities — including a long-overdue plan for Perry Hall.",
+      "Defend parental rights in curriculum, classrooms, and medical decisions.",
     ],
   },
   {
     numeral: "05",
-    slug: "protecting-from-overdevelopment",
-    title: "Protecting our communities from overdevelopment.",
+    slug: "first-responders-volunteer-fire-ems",
+    title: "Standing with first responders & volunteer fire/EMS.",
     summary:
-      "Eastern and northeastern Baltimore County is what it is because of its neighborhoods, its farmland, and its small-town character. Ryan stands for sensible guardrails on data-center sprawl, against state-mandated housing and transit overrides, and for the community’s right to plan its own future.",
+      "From the Middle River Volunteer Fire & Rescue Company to every career firefighter, EMS provider, and police officer in District 7A — Ryan is committed to making sure they have the funding, recruitment support, and recognition they’ve earned.",
     delivered: [
-      "Spoke out against the Housing Expansion and Affordability Act and its preemption of local planning.",
-      "Pressed for guardrails on large-scale data-center development in residential corridors.",
-      "Opposed the proposed extension of Baltimore-region transit into rural District 7A.",
+      "Secured $15M for a new Middle River fire department, $2.5M in new equipment for Long Green, and more than $1M for the Bowleys Quarters Volunteer Fire Department.",
+      "Serves on the Board of Directors for the Middle River Volunteer Fire & Rescue Company.",
+      "Worked alongside the White Marsh Police & Community Relations Council and other community-policing efforts.",
+      "Advocated for state matching funds for volunteer companies and recruitment incentives.",
     ],
     next: [
-      "Codify protections for residential and rural areas against data-center buildout that strains the grid and disrupts neighborhoods.",
-      "Defend Adequate Public Facilities Ordinances and the County Council’s authority to plan growth.",
-      "Insist that any transit decisions affecting Baltimore County include Baltimore County voices.",
+      "Push for sustained state support for volunteer fire and EMS — including recruitment, training, and equipment.",
+      "Champion mental-health support and recognition for career first-responders.",
+      "Make sure local public safety budgets are protected — not cut.",
     ],
   },
   {
@@ -134,36 +136,36 @@ export const priorities: Priority[] = [
   },
   {
     numeral: "08",
-    slug: "strong-schools-opportunity",
-    title: "Strong schools & opportunity for students.",
+    slug: "election-integrity",
+    title: "Election integrity.",
     summary:
-      "Every child in District 7A deserves a school that prepares them for life — whether that’s a four-year college, a trade, a career, or the military. Ryan supports high standards, strong career & technical education, real facility investment, and parents’ rightful place in their children’s education.",
+      "Every Marylander deserves an election system they can trust. Ryan supports commonsense ballot verification, transparent processes, and the same standards we apply to nearly every other part of public life.",
     delivered: [
-      "Awarded more than $100,000 in Maryland Legislative Scholarships every year — and more than 250 scholarships to District 7 students to date. [TODO: confirm cumulative vs. annual count]",
-      "Pushed for capital funding to address overcrowding at schools like Perry Hall High.",
-      "Backed expanded career and technical education in Baltimore County schools.",
+      "Co-sponsored legislation to tighten signature verification on mail-in ballots.",
+      "Voted for stronger chain-of-custody requirements at drop boxes.",
+      "Supported audits and transparency reforms in the State Board of Elections.",
     ],
     next: [
-      "Keep growing investment in CTE and workforce-ready high school pathways.",
-      "Fight to fix and replace crumbling school facilities — including a long-overdue plan for Perry Hall.",
-      "Defend parental rights in curriculum, classrooms, and medical decisions.",
+      "Continue pushing for photo-ID at the polls — making it easier to vote and harder to cheat.",
+      "Demand cleaner, more accurate voter rolls.",
+      "Champion clear, public reporting of election results and procedures.",
     ],
   },
   {
     numeral: "09",
-    slug: "first-responders-volunteer-fire-ems",
-    title: "Standing with first responders & volunteer fire/EMS.",
+    slug: "protecting-from-overdevelopment",
+    title: "Protecting our communities from overdevelopment.",
     summary:
-      "From the Middle River Volunteer Fire & Rescue Company to every career firefighter, EMS provider, and police officer in District 7A — Ryan is committed to making sure they have the funding, recruitment support, and recognition they’ve earned.",
+      "Eastern and northeastern Baltimore County is what it is because of its neighborhoods, its farmland, and its small-town character. Ryan stands for sensible guardrails on data-center sprawl, against state-mandated housing and transit overrides, and for the community’s right to plan its own future.",
     delivered: [
-      "Serves on the Board of Directors for the Middle River Volunteer Fire & Rescue Company.",
-      "Worked alongside the White Marsh Police & Community Relations Council and other community-policing efforts.",
-      "Advocated for state matching funds for volunteer companies and recruitment incentives.",
+      "Spoke out against the Housing Expansion and Affordability Act and its preemption of local planning.",
+      "Pressed for guardrails on large-scale data-center development in residential corridors.",
+      "Opposed the proposed extension of Baltimore-region transit into rural District 7A.",
     ],
     next: [
-      "Push for sustained state support for volunteer fire and EMS — including recruitment, training, and equipment.",
-      "Champion mental-health support and recognition for career first-responders.",
-      "Make sure local public safety budgets are protected — not cut.",
+      "Codify protections for residential and rural areas against data-center buildout that strains the grid and disrupts neighborhoods.",
+      "Defend Adequate Public Facilities Ordinances and the County Council’s authority to plan growth.",
+      "Insist that any transit decisions affecting Baltimore County include Baltimore County voices.",
     ],
   },
   {

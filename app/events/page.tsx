@@ -348,14 +348,9 @@ export default function EventsPage() {
                   community events.
                 </p>
                 <div className="mt-6 flex justify-center gap-4">
-                  <a
-                    href={site.donateUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-maroon"
-                  >
+                  <Link href="/contact" className="btn-maroon">
                     Join the List <Arrow />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </Reveal>
