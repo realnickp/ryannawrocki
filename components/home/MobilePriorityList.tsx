@@ -94,6 +94,12 @@ export function MobilePriorityList() {
                   <p className="text-[14px] leading-relaxed text-brand-slate">
                     {p.summary}
                   </p>
+                  <Link
+                    href={`/priorities#${p.slug}`}
+                    className="link-arrow mt-3 text-[11px]"
+                  >
+                    Read More <Arrow />
+                  </Link>
                 </div>
               )}
             </Reveal>
