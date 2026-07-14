@@ -56,9 +56,9 @@ export default function MeetRyanPage() {
         }
         lede="A Parkville native, Middle River resident, and lifelong Baltimore Countian — fighting for a safer, freer, more prosperous Maryland."
         media={{
-          src: "/images/443842377_873239447955743_503516871382094373_n.jpg",
-          alt: "Official portrait of Delegate Ryan Nawrocki",
-          objectPosition: "center 25%",
+          src: "/images/ryan-headshot-flag.jpg",
+          alt: "Delegate Ryan Nawrocki on the Baltimore County waterfront",
+          objectPosition: "center 20%",
           aspect: "aspect-[4/5]",
         }}
         actions={

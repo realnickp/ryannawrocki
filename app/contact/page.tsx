@@ -84,10 +84,10 @@ export default function ContactPage() {
         }
         lede="Volunteer, order a yard sign, contribute, or just ask a question — there's a place for every neighbor in this campaign. Reach out and the team will get right back to you."
         media={{
-          src: "/images/ryan-headshot-flag.jpg",
-          alt: "Delegate Ryan Nawrocki on the Baltimore County waterfront",
+          src: "/images/443842377_873239447955743_503516871382094373_n.jpg",
+          alt: "Official portrait of Delegate Ryan Nawrocki",
           aspect: "aspect-[4/5]",
-          objectPosition: "center 20%",
+          objectPosition: "center 25%",
         }}
       />
 
