@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/data/site";
-import { issues } from "@/data/issues";
+import { getPublishedPosts } from "@/lib/cms/queries";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const today = new Date();
   const staticPaths = [
     "",
@@ -17,7 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/session-summary/2024",
   ];
 
-  const issuePaths = issues.map((i) => `/issues/${i.slug}`);
+  const posts = await getPublishedPosts();
+  const issuePaths = posts.map((p) => `/issues/${p.slug}`);
 
   return [...staticPaths, ...issuePaths].map((p) => ({
     url: `${site.url}${p}`,

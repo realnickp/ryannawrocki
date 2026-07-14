@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { issues, featuredIssueSlugs, issueBySlug } from "@/data/issues";
+import { getPublishedPosts, getPublishedVideos } from "@/lib/cms/queries";
 import { site } from "@/data/site";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Underline } from "@/components/home/Underline";
@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   description:
     "Squatters and property rights. Power lines through our farmland. The flying mission at Martin State. The war on drivers. The latest from Annapolis and across District 7A.",
 };
+
+export const revalidate = 60;
 
 function Arrow() {
   return (
@@ -70,55 +72,34 @@ function Meta({
   );
 }
 
-/** Ryan's TV appearances — labeled YouTube segments, sorted newest first. */
-const videos: Video[] = [
-  { id: "_5idNwWCcwQ", channel: "FOX45", date: "2026-04-10", title: "Backing the BPD commissioner's criticism of juvenile ankle monitoring" },
-  { id: "NnvIePnor8M", channel: "FOX45", date: "2026-04-08", title: "Juvenile records bill nears approval as IG-access proposal stalls in Annapolis" },
-  { id: "pCAhCfvqtCU", channel: "FOX45", date: "2026-02-27", title: "Push for transparency: a bill to ensure Inspectors General can access documents" },
-  { id: "bxmAKrhGvkA", channel: "WMAR-2", date: "2026-02-27", title: "Lawmakers want watchdogs to have better access to government records", noEmbed: true },
-  { id: "MQDoKcv3Fuc", channel: "WMAR-2", date: "2026-02-19", title: "Bipartisan push seeks Inspector General oversight of Baltimore County schools", noEmbed: true },
-  { id: "0yVEldwx6mI", channel: "FOX45", date: "2026-02-17", title: "Del. Ryan Nawrocki discusses a possible statewide Inspector General" },
-  { id: "JhGwSsNoCdo", channel: "FOX45", date: "2026-02-10", title: "Face Off on energy issues with Del. Korman and Del. Nawrocki", start: 139 },
-  { id: "fXZhEnxe_bM", channel: "FOX45", date: "2026-01-21", title: "Rep. Andy Harris calls Maryland's proposed congressional map 'unconstitutional'" },
-  { id: "sx5dqbRV_ek", channel: "FOX45", date: "2026-01-09", title: "Maryland Freedom Caucus pushes for new laws to secure voter registration" },
-  { id: "-v3-P7DXwqE", channel: "FOX45", date: "2025-03-25", title: "Maryland's budget woes — compared with thrifty neighbors Pennsylvania and Virginia" },
-  { id: "3LgpHGINLU4", channel: "WBAL", date: "2025-01-23", title: "Del. Ryan Nawrocki talks the squatting issue with Baltimore housing" },
-  { id: "KXnORzvxOyQ", channel: "FOX45", date: "2023-08-29", title: "Calling for a special hearing to investigate issues at the State Dept. of Education" },
-].sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+export default async function IssuesIndex() {
+  const posts = await getPublishedPosts();
+  const { clips, coverage } = await getPublishedVideos();
 
-/** Additional TV / station coverage (links out to the broadcast page). */
-const coverage = [
-  { station: "FOX45", label: "Del. Nawrocki's priorities ahead of the 2026 session", href: "https://foxbaltimore.com/fox45-mornings/del-nawrockis-priorities-ahead-of-2026-legislative-session" },
-  { station: "FOX45", label: "On the future of the Blueprint education plan (In Depth)", href: "https://foxbaltimore.com/fox45-in-depth/ryan-nawrocki-perspective-blueprint-plan-potential-changes" },
-  { station: "FOX45", label: "Lawmaker slams loopholes fueling the squatter underworld (Spotlight)", href: "https://foxbaltimore.com/news/local/maryland-lawmaker-slams-state-assembly-for-loopholes-fueling-squatter-placement-underworld" },
-  { station: "WJZ / CBS", label: "Proposed statewide Inspector General office", href: "https://www.cbsnews.com/baltimore/news/maryland-legislation-inspector-general-statewide-oversight/" },
-  { station: "WJZ / CBS", label: "GOP lawmakers call on Moore to halt energy taxes and fees", href: "https://www.cbsnews.com/baltimore/news/maryland-petition-energy-bills-taxes-fees-wes-moore/" },
-  { station: "WMAR-2", label: "Push back on plans to retire the A-10 'Warthogs'", href: "https://www.wmar2news.com/local/push-back-on-plans-to-retire-a-10-warthogs" },
-  { station: "WMAR-2", label: "Eastern Boulevard traffic-safety study community meeting", href: "https://www.wmar2news.com/news/region/baltimore-county/eastern-boulevard-traffic-safety-study-the-focus-of-a-community-meeting" },
-];
+  const featured = posts.find((p) => p.featured) ?? posts[0];
+  const rest = featured ? posts.filter((p) => p.slug !== featured.slug) : posts;
+  const topics = Array.from(new Set(posts.map((p) => p.topic)));
 
-/** Per-issue object-position so heads aren't cropped in the 16:10 card. */
-const cardPos: Record<string, string> = {
-  "inspector-general-reform": "center 42%",
-  "bcps-inspector-general-oversight": "center 50%",
-  "middle-river-fire-station": "center 55%",
-  "deer-management": "center 45%",
-  "hb202-anti-squatters": "center 26%",
-  "power-lines-and-brandon-shores": "center 18%",
-  "war-on-drivers": "center 22%",
-  "immigration-and-public-safety": "center 22%",
-  "housing-expansion-act": "center 18%",
-  "air-national-guard-flying-mission": "center 28%",
-  "eastern-avenue-traffic": "center 30%",
-  "rocket-lab-middle-river": "center 84%",
-};
+  /** Ryan's TV appearances — managed in the admin Videos section. */
+  const videos: Video[] = clips
+    .filter((c) => c.youtube_id)
+    .map((c) => ({
+      id: c.youtube_id as string,
+      channel: c.channel ?? "",
+      date: c.date ?? undefined,
+      title: c.title,
+      noEmbed: c.no_embed || undefined,
+      start: c.start_seconds ?? undefined,
+    }));
 
-export default function IssuesIndex() {
-  const featured = issueBySlug(featuredIssueSlugs[0]) ?? issues[0];
-  const rest = featured
-    ? issues.filter((i) => i.slug !== featured.slug)
-    : issues;
-  const topics = Array.from(new Set(issues.map((i) => i.topic)));
+  /** Additional TV / station coverage (links out to the broadcast page). */
+  const coverageLinks = coverage
+    .filter((l) => l.href)
+    .map((l) => ({
+      station: l.channel ?? "",
+      label: l.title,
+      href: l.href as string,
+    }));
 
   return (
     <>
@@ -174,7 +155,7 @@ export default function IssuesIndex() {
                     from="left"
                     frameClassName="photo-frame aspect-[4/3] w-full"
                     imgClassName="h-full w-full object-cover"
-                    objectPosition={cardPos[featured.slug] ?? "center 28%"}
+                    objectPosition={featured.imagePosition ?? "center 28%"}
                   />
                 )}
                 <div>
@@ -216,7 +197,7 @@ export default function IssuesIndex() {
                         alt={u.image.alt}
                         loading="lazy"
                         className="h-full w-full object-cover"
-                        style={{ objectPosition: cardPos[u.slug] ?? "center 28%" }}
+                        style={{ objectPosition: u.imagePosition ?? "center 28%" }}
                       />
                       <span className="news-card__tag">{u.topic}</span>
                     </div>
@@ -268,7 +249,7 @@ export default function IssuesIndex() {
             <p className="eyebrow eyebrow--gold">More Coverage</p>
           </Reveal>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {coverage.map((c) => (
+            {coverageLinks.map((c) => (
               <a
                 key={c.href}
                 href={c.href}

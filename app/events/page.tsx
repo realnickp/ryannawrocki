@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { events, upcomingEvents, pastEvents } from "@/data/events";
-import type { EventItem } from "@/data/events";
+import { getPublishedEvents } from "@/lib/cms/queries";
+import type { PublicEvent } from "@/lib/cms/types";
 import { site } from "@/data/site";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Underline } from "@/components/home/Underline";
@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   description:
     "Upcoming fundraisers, town halls, and community events with Delegate Ryan Nawrocki across District 7A.",
 };
+
+export const revalidate = 60;
 
 function Arrow() {
   return (
@@ -47,7 +49,7 @@ function GoldRule() {
   );
 }
 
-function labelForType(t: EventItem["type"]): string {
+function labelForType(t: PublicEvent["type"]): string {
   switch (t) {
     case "fundraiser":
       return "Fundraiser";
@@ -103,7 +105,7 @@ function DateBadge({ date, time }: { date: string; time?: string }) {
   );
 }
 
-function EventCard({ event, muted }: { event: EventItem; muted?: boolean }) {
+function EventCard({ event, muted }: { event: PublicEvent; muted?: boolean }) {
   return (
     <div
       className={`card-soft flex gap-5 p-6 ${muted ? "opacity-60" : ""}`}
@@ -155,10 +157,16 @@ function EventCard({ event, muted }: { event: EventItem; muted?: boolean }) {
   );
 }
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const events = await getPublishedEvents();
+  const today = new Date().toISOString().slice(0, 10);
   const featured = events.find((e) => e.featured) ?? null;
-  const upcoming = upcomingEvents().filter((e) => e.slug !== featured?.slug);
-  const past = pastEvents();
+  const upcoming = events
+    .filter((e) => e.date >= today && e.slug !== featured?.slug)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  const past = events
+    .filter((e) => e.date < today)
+    .sort((a, b) => b.date.localeCompare(a.date));
 
   return (
     <>

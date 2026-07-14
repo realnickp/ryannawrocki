@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { issues, issueBySlug } from "@/data/issues";
+import { getPublishedPosts, getPostBySlug } from "@/lib/cms/queries";
+import { sanitizeBodyHtml } from "@/lib/cms/sanitize";
+import { splitHtmlAfterParagraphs } from "@/lib/cms/types";
 import { site } from "@/data/site";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Underline } from "@/components/home/Underline";
@@ -11,18 +13,22 @@ import { StarGlyph, CheckGlyph } from "@/components/home/Glyphs";
 
 type Params = { slug: string };
 
-export function generateStaticParams(): Params[] {
-  return issues.map((i) => ({ slug: i.slug }));
+export const revalidate = 60;
+export const dynamicParams = true;
+
+export async function generateStaticParams(): Promise<Params[]> {
+  const posts = await getPublishedPosts();
+  return posts.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: Params;
-}): Metadata {
-  const issue = issueBySlug(params.slug);
-  if (!issue) return { title: "Issue not found" };
-  return { title: issue.title, description: issue.excerpt };
+}): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+  if (!post) return { title: "Update not found" };
+  return { title: post.title, description: post.excerpt };
 }
 
 function Arrow() {
@@ -60,36 +66,21 @@ function formatDate(d: string): string {
   return `${monthName} ${yStr}`;
 }
 
-/** Per-image object-position so heads / focal points are never cropped. */
-const imagePosition: Record<string, string> = {
-  "inspector-general-reform": "center 42%",
-  "bcps-inspector-general-oversight": "center 50%",
-  "middle-river-fire-station": "center 55%",
-  "deer-management": "center 45%",
-  "hb202-anti-squatters": "center 30%",
-  "power-lines-and-brandon-shores": "center 30%",
-  "war-on-drivers": "center 25%",
-  "immigration-and-public-safety": "center 28%",
-  "housing-expansion-act": "center 25%",
-  "air-national-guard-flying-mission": "center 30%",
-  "eastern-avenue-traffic": "center 30%",
-  "rocket-lab-middle-river": "center 88%",
-};
+export default async function IssuePage({ params }: { params: Params }) {
+  const post = await getPostBySlug(params.slug);
+  if (!post) notFound();
 
-export default function IssuePage({ params }: { params: Params }) {
-  const issue = issueBySlug(params.slug);
-  if (!issue) notFound();
-
-  const idx = issues.findIndex((i) => i.slug === issue.slug);
+  const posts = await getPublishedPosts();
+  const idx = posts.findIndex((p) => p.slug === post.slug);
   const related = [
-    issues[(idx + 1) % issues.length],
-    issues[(idx + 2) % issues.length],
+    posts[(idx + 1) % posts.length],
+    posts[(idx + 2) % posts.length],
   ];
 
-  // Split body so the pull-quote sits after the opening, not at the very end.
-  const splitAt = issue.pullQuote && issue.body.length > 2 ? 2 : issue.body.length;
-  const leadParas = issue.body.slice(0, splitAt);
-  const restParas = issue.body.slice(splitAt);
+  // Sanitize again at render (defense in depth), then split so the
+  // pull-quote sits after the opening rather than at the very end.
+  const safe = sanitizeBodyHtml(post.bodyHtml);
+  const [lead, rest] = splitHtmlAfterParagraphs(safe, 2);
 
   return (
     <>
@@ -121,27 +112,27 @@ export default function IssuePage({ params }: { params: Params }) {
             </Link>
             <div className="gold-tick mt-6" />
             <p className="eyebrow mt-5">
-              {issue.topic}
-              {issue.date ? ` · ${formatDate(issue.date)}` : null}
+              {post.topic}
+              {post.date ? ` · ${formatDate(post.date)}` : null}
             </p>
-            <h1 className="h-display mt-4 max-w-[24ch]">{issue.title}</h1>
-            {issue.dek && (
-              <p className="lede mt-6 max-w-[60ch]">{issue.dek}</p>
+            <h1 className="h-display mt-4 max-w-[24ch]">{post.title}</h1>
+            {post.dek && (
+              <p className="lede mt-6 max-w-[60ch]">{post.dek}</p>
             )}
             <div className="article-byline mt-7">
               <span>
-                By <strong>{issue.author ?? "Delegate Ryan Nawrocki"}</strong>
+                By <strong>{post.author}</strong>
               </span>
-              {issue.date && (
+              {post.date && (
                 <>
                   <span className="dot" />
-                  <span>{formatDate(issue.date)}</span>
+                  <span>{formatDate(post.date)}</span>
                 </>
               )}
-              {issue.readTime && (
+              {post.readTime && (
                 <>
                   <span className="dot" />
-                  <span>{issue.readTime}</span>
+                  <span>{post.readTime}</span>
                 </>
               )}
             </div>
@@ -150,16 +141,16 @@ export default function IssuePage({ params }: { params: Params }) {
       </section>
 
       {/* ── Framed image ──────────────────────────────── */}
-      {issue.image && (
+      {post.image && (
         <section className="bg-white">
           <div className="mx-auto max-w-[1180px] px-6 py-12 md:px-10 md:py-16">
             <RevealImage
-              src={issue.image.src}
-              alt={issue.image.alt}
+              src={post.image.src}
+              alt={post.image.alt}
               from="up"
               frameClassName="photo-frame aspect-[16/9] w-full"
               imgClassName="h-full w-full object-cover"
-              objectPosition={imagePosition[issue.slug] ?? "center 30%"}
+              objectPosition={post.imagePosition ?? "center 30%"}
             />
           </div>
         </section>
@@ -170,27 +161,23 @@ export default function IssuePage({ params }: { params: Params }) {
         <div className="mx-auto max-w-[760px] px-6 py-16 md:px-10 md:py-20">
           {/* Lead paragraphs + pull-quote interleaved */}
           <Reveal className="prose-light article-body">
-            {leadParas.map((p) => (
-              <p key={p.slice(0, 40)}>{p}</p>
-            ))}
+            <div dangerouslySetInnerHTML={{ __html: lead }} />
           </Reveal>
 
-          {issue.pullQuote && (
+          {post.pullQuote && (
             <Reveal className="article-pullquote">
-              <p>“{issue.pullQuote}”</p>
+              <p>“{post.pullQuote}”</p>
             </Reveal>
           )}
 
-          {restParas.length > 0 && (
-            <Reveal className="prose-light">
-              {restParas.map((p) => (
-                <p key={p.slice(0, 40)}>{p}</p>
-              ))}
+          {rest && (
+            <Reveal className="prose-light article-body">
+              <div dangerouslySetInnerHTML={{ __html: rest }} />
             </Reveal>
           )}
 
           {/* Where Ryan stands */}
-          {issue.keyPoints && issue.keyPoints.length > 0 && (
+          {post.keyPoints && post.keyPoints.length > 0 && (
             <Reveal className="keypoints mt-12">
               <div className="flex items-center gap-3">
                 <span className="icon-chip icon-chip--gold icon-chip--mini">
@@ -199,7 +186,7 @@ export default function IssuePage({ params }: { params: Params }) {
                 <p className="eyebrow">Where Ryan Stands</p>
               </div>
               <ul className="mt-5 space-y-4">
-                {issue.keyPoints.map((k) => (
+                {post.keyPoints.map((k) => (
                   <li key={k} className="check-row">
                     <span className="check-badge">
                       <CheckGlyph size={14} />
@@ -211,28 +198,12 @@ export default function IssuePage({ params }: { params: Params }) {
             </Reveal>
           )}
 
-          {/* Our Asks */}
-          {issue.bullets && issue.bullets.length > 0 && (
-            <Reveal className="prose-light">
-              <div className="my-10 flex items-center gap-3">
-                <span className="block h-px w-8 bg-brand-gold" />
-                <p className="eyebrow eyebrow--gold">Our Asks</p>
-                <span className="block h-px flex-1 bg-brand-hairline" />
-              </div>
-              <ul>
-                {issue.bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-            </Reveal>
-          )}
-
           {/* Action links */}
-          {issue.links && issue.links.length > 0 && (
+          {post.links && post.links.length > 0 && (
             <div className="mt-12 rounded-xl border border-brand-hairline bg-brand-paper2 p-7">
               <p className="eyebrow eyebrow--gold">Read &amp; Take Action</p>
               <ul className="mt-5 space-y-3 list-none p-0">
-                {issue.links.map((l) => (
+                {post.links.map((l) => (
                   <li key={l.label} className="flex items-baseline gap-3">
                     <span className="mt-1.5 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-gold" />
                     <a
@@ -250,11 +221,11 @@ export default function IssuePage({ params }: { params: Params }) {
           )}
 
           {/* Sources */}
-          {issue.sources && issue.sources.length > 0 && (
+          {post.sources && post.sources.length > 0 && (
             <div className="mt-12 border-t border-brand-hairline pt-8">
               <p className="eyebrow">Sources</p>
               <div className="mt-4">
-                {issue.sources.map((s, i) => (
+                {post.sources.map((s, i) => (
                   <div key={s.href} className="source-row">
                     <span className="source-row__num">
                       {String(i + 1).padStart(2, "0")}
@@ -298,7 +269,7 @@ export default function IssuePage({ params }: { params: Params }) {
           </Reveal>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {related.filter(Boolean).map((r, i) =>
-              r ? (
+              r && r.slug !== post.slug ? (
                 <Reveal key={r.slug} as="div" delay={(i % 2) * 0.07}>
                   <Link href={`/issues/${r.slug}`} className="news-card">
                     {r.image && (
@@ -309,7 +280,7 @@ export default function IssuePage({ params }: { params: Params }) {
                           alt={r.image.alt}
                           loading="lazy"
                           className="h-full w-full object-cover"
-                          style={{ objectPosition: imagePosition[r.slug] ?? "center 28%" }}
+                          style={{ objectPosition: r.imagePosition ?? "center 28%" }}
                         />
                         <span className="news-card__tag">{r.topic}</span>
                       </div>

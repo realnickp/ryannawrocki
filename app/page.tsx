@@ -20,7 +20,9 @@ import {
 } from "@/components/home/Glyphs";
 import { site } from "@/data/site";
 import { priorities } from "@/data/priorities";
-import { issues } from "@/data/issues";
+import { getPublishedPosts } from "@/lib/cms/queries";
+
+export const revalidate = 60;
 
 function Arrow() {
   return (
@@ -128,8 +130,9 @@ const values = [
   "Faith & Family",
 ];
 
-export default function HomePage() {
-  const updates = issues.slice(0, 3);
+export default async function HomePage() {
+  const posts = await getPublishedPosts();
+  const updates = posts.slice(0, 3);
 
   return (
     <>
