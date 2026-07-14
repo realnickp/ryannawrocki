@@ -109,8 +109,15 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
 
   /** Save first (keeping the current published/draft state), then open the preview. */
   async function preview() {
+    // Open the tab synchronously so the browser doesn't block it as a popup,
+    // then point it at the preview once the save finishes.
+    const win = window.open("about:blank", "_blank");
     const id = await save(form.status);
-    if (id) window.open(`/admin/preview/posts/${id}`, "_blank");
+    if (id && win) {
+      win.location.href = `/admin/preview/posts/${id}`;
+    } else {
+      win?.close();
+    }
   }
 
   async function remove() {
@@ -284,7 +291,18 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
             onChange={(rows) => set("links", rows.map(([label, href]) => ({ label, href })))} />
           <PairListField label="Sources (news stories this is based on)" aLabel="Headline" bLabel="Web address (https://…)"
             values={(form.sources ?? []).map((s) => [s.label, s.href] as [string, string])}
-            onChange={(rows) => set("sources", rows.map(([label, href]) => ({ label, href })))} />
+            onChange={(rows) =>
+              set(
+                "sources",
+                rows.map(([label, href], i) => ({
+                  label,
+                  href,
+                  // keep the outlet name (e.g. "The Baltimore Sun") that came
+                  // with existing sources when rows are edited in place
+                  publisher: form.sources?.[i]?.publisher ?? null,
+                })),
+              )
+            } />
         </div>
       </details>
 

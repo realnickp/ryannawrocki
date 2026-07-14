@@ -88,7 +88,17 @@ export const postInputSchema = z.object({
   excerpt: emptyToNull(z.string().max(600)),
   dek: emptyToNull(z.string().max(600)),
   bodyHtml: z.string().min(8, "please write something in the body first").max(200_000),
-  coverImage: emptyToNull(z.string().url()),
+  // Uploaded images are full https URLs; the migrated posts use site-local
+  // photo paths like /images/foo.jpg — both are valid cover images.
+  coverImage: emptyToNull(
+    z
+      .string()
+      .max(600)
+      .refine(
+        (v) => v.startsWith("/") || v.startsWith("https://"),
+        "must be an uploaded image or a site photo",
+      ),
+  ),
   coverAlt: emptyToNull(z.string().max(250)),
   coverPosition: emptyToNull(z.string().max(40)),
   readTime: emptyToNull(z.string().max(30)),

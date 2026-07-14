@@ -93,8 +93,15 @@ export default function EventEditorPage({ params }: { params: { id: string } }) 
 
   /** Save first (keeping the current published/draft state), then open the preview. */
   async function preview() {
+    // Open the tab synchronously so the browser doesn't block it as a popup,
+    // then point it at the preview once the save finishes.
+    const win = window.open("about:blank", "_blank");
     const id = await save(form.status);
-    if (id) window.open(`/admin/preview/events/${id}`, "_blank");
+    if (id && win) {
+      win.location.href = `/admin/preview/events/${id}`;
+    } else {
+      win?.close();
+    }
   }
 
   async function remove() {
