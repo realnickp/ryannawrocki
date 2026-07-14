@@ -2,11 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { verifyPassword, DUMMY_HASH } from "@/lib/auth/password";
-import {
-  createSessionToken,
-  SESSION_COOKIE,
-  SESSION_MAX_AGE_SECONDS,
-} from "@/lib/auth/session";
+import { createSessionToken, SESSION_COOKIE } from "@/lib/auth/session";
 
 export const runtime = "nodejs";
 
@@ -65,12 +61,14 @@ export async function POST(req: Request) {
 
   const token = await createSessionToken({ sub: user.id, email: user.email });
   const res = NextResponse.json({ ok: true });
+  // Deliberately NO maxAge: a session cookie disappears when the browser
+  // closes, so signing in is required each time. The token itself also
+  // expires after SESSION_MAX_AGE_SECONDS (12h) as a hard cap.
   res.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: SESSION_MAX_AGE_SECONDS,
   });
   return res;
 }

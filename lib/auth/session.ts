@@ -1,7 +1,12 @@
 import { SignJWT, jwtVerify } from "jose";
 
 export const SESSION_COOKIE = "admin_session";
-export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // 7 days
+/**
+ * Token lifetime cap. The cookie itself is a SESSION cookie (no Max-Age), so
+ * closing the browser signs you out; this cap additionally forces a fresh
+ * login after 12 hours even in a browser that never closes.
+ */
+export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 12; // 12 hours
 const ALG = "HS256";
 
 export type SessionPayload = { sub: string; email: string };

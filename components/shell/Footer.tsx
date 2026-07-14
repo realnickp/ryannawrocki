@@ -109,7 +109,17 @@ export function Footer() {
           </p>
           <p>{site.authorityLine}</p>
         </div>
-        <p className="mt-3 text-xs text-brand-slate/60">{site.mailing}</p>
+        <div className="mt-3 flex items-center justify-between gap-4">
+          <p className="text-xs text-brand-slate/60">{site.mailing}</p>
+          {/* Barely-visible campaign-admin entrance */}
+          <Link
+            href="/admin"
+            className="text-[10px] text-brand-slate/25 transition-colors hover:text-brand-slate/60"
+            aria-label="Campaign admin sign in"
+          >
+            Admin
+          </Link>
+        </div>
       </div>
     </footer>
   );
