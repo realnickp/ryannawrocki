@@ -3059,3 +3059,31 @@ body {
   }
 }
 
+
+/* ── Admin rich-text editor ─────────────────────────────── */
+.admin-editor .ProseMirror {
+  min-height: 340px;
+  outline: none;
+  background: #fff;
+  border: 1px solid #dfe3ea;
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+.admin-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9aa3b5;
+  pointer-events: none;
+  height: 0;
+}
+.admin-editor .ProseMirror img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+.admin-editor .ProseMirror iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border-radius: 10px;
+  pointer-events: none; /* select/delete the block, don't play inline */
+}
