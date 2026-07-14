@@ -71,7 +71,7 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded]);
 
-  async function save(status: "draft" | "published") {
+  async function save(status: "draft" | "published"): Promise<string | null> {
     setBusy(true);
     setMsg(null);
     const payload: PostInput = {
@@ -84,23 +84,33 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
     payload.links = (payload.links ?? []).filter((l) => l.label && l.href);
     payload.sources = (payload.sources ?? []).filter((s) => s.label && s.href);
     try {
-      if (postId) {
-        await adminFetch(`/api/admin/posts/${postId}`, { method: "PUT", body: payload });
+      let id = postId;
+      if (id) {
+        await adminFetch(`/api/admin/posts/${id}`, { method: "PUT", body: payload });
       } else {
-        const { id } = await adminFetch<{ id: string }>("/api/admin/posts", {
+        const created = await adminFetch<{ id: string }>("/api/admin/posts", {
           method: "POST", body: payload,
         });
+        id = created.id;
         setPostId(id);
         window.history.replaceState(null, "", `/admin/posts/${id}`);
       }
       setForm(payload);
       localStorage.removeItem(draftKey);
       setMsg({ ok: true, text: status === "published" ? "Published ✓" : "Draft saved ✓" });
+      return id;
     } catch (e) {
       setMsg({ ok: false, text: e instanceof Error ? e.message : "Save failed" });
+      return null;
     } finally {
       setBusy(false);
     }
+  }
+
+  /** Save first (keeping the current published/draft state), then open the preview. */
+  async function preview() {
+    const id = await save(form.status);
+    if (id) window.open(`/admin/preview/posts/${id}`, "_blank");
   }
 
   async function remove() {
@@ -139,11 +149,9 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
           {isNew && !postId ? "New Post" : "Edit Post"}
         </h1>
         <div className="flex flex-wrap items-center gap-2">
-          {postId && (
-            <a href={`/admin/preview/${postId}`} target="_blank" rel="noreferrer" className="btn-outline-navy">
-              Preview
-            </a>
-          )}
+          <button type="button" disabled={busy} onClick={preview} className="btn-outline-navy">
+            Preview
+          </button>
           <button type="button" disabled={busy} onClick={() => save("draft")} className="btn-outline-navy">
             Save Draft
           </button>
@@ -175,9 +183,12 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
         </label>
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="block">
-            <span className="form-label">Slug (URL)</span>
+            <span className="form-label">Web address (fills in automatically)</span>
             <input className="form-input" value={form.slug}
               onChange={(e) => { setSlugTouched(true); set("slug", e.target.value); }} />
+            <span className="mt-1 block text-xs text-brand-slate/70">
+              ryannawrocki.com/issues/{form.slug || "…"}
+            </span>
           </label>
           <label className="block">
             <span className="form-label">Category</span>
@@ -202,12 +213,12 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
           </label>
         </div>
         <label className="block">
-          <span className="form-label">Excerpt (card text)</span>
+          <span className="form-label">Short summary (shows on the News page cards)</span>
           <textarea rows={2} className="form-textarea" value={form.excerpt ?? ""}
             onChange={(e) => set("excerpt", e.target.value)} />
         </label>
         <label className="block">
-          <span className="form-label">Dek (subtitle under the headline — optional)</span>
+          <span className="form-label">Subtitle (optional — shows under the headline)</span>
           <textarea rows={2} className="form-textarea" value={form.dek ?? ""}
             onChange={(e) => set("dek", e.target.value)} />
         </label>
@@ -224,9 +235,16 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
                   value={form.coverAlt ?? ""} onChange={(e) => set("coverAlt", e.target.value)} />
                 <select className="form-select" value={form.coverPosition ?? "center 30%"}
                   onChange={(e) => set("coverPosition", e.target.value)}>
-                  {["center 10%", "center 20%", "center 30%", "center 40%", "center 50%",
-                    "center 60%", "center 70%"].map((p) => (
-                    <option key={p} value={p}>Focus: {p.replace("center ", "")} from top</option>
+                  {([
+                    ["center 10%", "Show the top of the photo"],
+                    ["center 20%", "Show the upper part"],
+                    ["center 30%", "A little above center"],
+                    ["center 40%", "Near the center"],
+                    ["center 50%", "Show the middle"],
+                    ["center 60%", "A little below center"],
+                    ["center 70%", "Show the lower part"],
+                  ] as [string, string][]).map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
                   ))}
                 </select>
                 <button type="button" className="text-xs font-semibold text-brand-maroon"
@@ -251,20 +269,20 @@ export default function PostEditorPage({ params }: { params: { id: string } }) {
 
       <details className="card-soft p-7">
         <summary className="cursor-pointer font-display font-bold text-brand-navy">
-          Advanced (key points, pull quote, links, sources)
+          More options (key points, big quote, links, sources)
         </summary>
         <div className="mt-5 space-y-5">
-          <StringListField label="Key points (“Where Ryan Stands”)"
+          <StringListField label="Key points (the “Where Ryan Stands” list)"
             values={form.keyPoints ?? []} onChange={(v) => set("keyPoints", v)} />
           <label className="block">
-            <span className="form-label">Pull quote</span>
+            <span className="form-label">Big quote (shows large in the middle of the article)</span>
             <textarea rows={2} className="form-textarea" value={form.pullQuote ?? ""}
               onChange={(e) => set("pullQuote", e.target.value)} />
           </label>
-          <PairListField label="Action links" aLabel="Label" bLabel="URL"
+          <PairListField label="Helpful links (shown as “Read & Take Action”)" aLabel="What to call it" bLabel="Web address (https://…)"
             values={(form.links ?? []).map((l) => [l.label, l.href] as [string, string])}
             onChange={(rows) => set("links", rows.map(([label, href]) => ({ label, href })))} />
-          <PairListField label="Sources" aLabel="Headline / label" bLabel="URL"
+          <PairListField label="Sources (news stories this is based on)" aLabel="Headline" bLabel="Web address (https://…)"
             values={(form.sources ?? []).map((s) => [s.label, s.href] as [string, string])}
             onChange={(rows) => set("sources", rows.map(([label, href]) => ({ label, href })))} />
         </div>

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireSession } from "@/lib/auth/guard";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { postInputSchema, postInputToRow } from "@/lib/cms/types";
+import { postInputSchema, postInputToRow, friendlyIssue } from "@/lib/cms/types";
 import { sanitizeBodyHtml } from "@/lib/cms/sanitize";
 import { revalidateContent } from "@/lib/cms/revalidate";
 
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   if (!parsed.success) {
     const issue = parsed.error.issues[0];
     return NextResponse.json(
-      { error: `${issue?.path.join(".")}: ${issue?.message}` },
+      { error: issue ? friendlyIssue(issue) : "Please check the form and try again." },
       { status: 400 },
     );
   }

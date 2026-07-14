@@ -158,10 +158,10 @@ function Row({ v, onChange, onSave, onDelete }: {
       <input type="date" className="form-input w-40" value={v.date ?? ""}
         onChange={(e) => onChange({ ...v, date: e.target.value || null })} />
       {v.kind === "clip" && (
-        <label className="flex items-center gap-1.5 text-xs text-brand-slate">
+        <label className="flex items-center gap-1.5 text-xs text-brand-slate" title="Check this if the video won't play on the site — visitors get a link to YouTube instead">
           <input type="checkbox" checked={v.no_embed}
             onChange={(e) => onChange({ ...v, no_embed: e.target.checked })} />
-          link-only
+          no player (link to YouTube)
         </label>
       )}
       <button type="button" className="btn-outline-navy !px-3 !py-1.5 text-xs" onClick={() => onSave(v)}>

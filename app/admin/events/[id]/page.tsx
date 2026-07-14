@@ -56,7 +56,7 @@ export default function EventEditorPage({ params }: { params: { id: string } }) 
       .catch((e) => setMsg({ ok: false, text: e.message }));
   }, [isNew, params.id]);
 
-  async function save(status: "draft" | "published") {
+  async function save(status: "draft" | "published"): Promise<string | null> {
     setBusy(true);
     setMsg(null);
     const contact = form.contact ?? {};
@@ -69,22 +69,32 @@ export default function EventEditorPage({ params }: { params: { id: string } }) 
         contact.name || contact.email || contact.phone ? contact : null,
     };
     try {
-      if (eventId) {
-        await adminFetch(`/api/admin/events/${eventId}`, { method: "PUT", body: payload });
+      let id = eventId;
+      if (id) {
+        await adminFetch(`/api/admin/events/${id}`, { method: "PUT", body: payload });
       } else {
-        const { id } = await adminFetch<{ id: string }>("/api/admin/events", {
+        const created = await adminFetch<{ id: string }>("/api/admin/events", {
           method: "POST", body: payload,
         });
+        id = created.id;
         setEventId(id);
         window.history.replaceState(null, "", `/admin/events/${id}`);
       }
       setForm(payload);
       setMsg({ ok: true, text: status === "published" ? "Published ✓" : "Draft saved ✓" });
+      return id;
     } catch (e) {
       setMsg({ ok: false, text: e instanceof Error ? e.message : "Save failed" });
+      return null;
     } finally {
       setBusy(false);
     }
+  }
+
+  /** Save first (keeping the current published/draft state), then open the preview. */
+  async function preview() {
+    const id = await save(form.status);
+    if (id) window.open(`/admin/preview/events/${id}`, "_blank");
   }
 
   async function remove() {
@@ -107,7 +117,10 @@ export default function EventEditorPage({ params }: { params: { id: string } }) 
         <h1 className="font-display text-2xl font-extrabold text-brand-navy">
           {eventId ? "Edit Event" : "New Event"}
         </h1>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <button type="button" disabled={busy} onClick={preview} className="btn-outline-navy">
+            Preview
+          </button>
           <button type="button" disabled={busy} onClick={() => save("draft")} className="btn-outline-navy">
             Save Draft
           </button>
@@ -131,7 +144,7 @@ export default function EventEditorPage({ params }: { params: { id: string } }) 
         </label>
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="block">
-            <span className="form-label">Slug</span>
+            <span className="form-label">Web address (fills in automatically)</span>
             <input className="form-input" value={form.slug}
               onChange={(e) => { setSlugTouched(true); set("slug", e.target.value); }} />
           </label>

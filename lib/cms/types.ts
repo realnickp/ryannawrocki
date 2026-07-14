@@ -24,26 +24,70 @@ export function splitHtmlAfterParagraphs(html: string, n: number): [string, stri
 
 /* ── zod input schemas (camelCase, what the admin UI sends) ───────── */
 
-const dateStr = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD");
+const dateStr = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "pick a date");
 const slugStr = z
   .string()
-  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "lowercase-with-hyphens")
-  .min(3)
+  .regex(
+    /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+    "can only use lowercase letters, numbers, and hyphens (no spaces)",
+  )
+  .min(3, "needs at least 3 characters")
   .max(120);
+
+/** Plain-English field names for error messages shown to Ryan/Nick. */
+export const FIELD_LABELS: Record<string, string> = {
+  title: "Title",
+  slug: "Web address",
+  topic: "Category",
+  date: "Date",
+  bodyHtml: "Body",
+  excerpt: "Short summary",
+  dek: "Subtitle",
+  coverImage: "Cover image",
+  coverAlt: "Photo description",
+  readTime: "Read time",
+  keyPoints: "Key points",
+  pullQuote: "Big quote",
+  links: "Helpful links",
+  sources: "Sources",
+  venue: "Venue",
+  address: "Address",
+  summary: "Summary",
+  time: "Time",
+  type: "Event type",
+  rsvpUrl: "RSVP link",
+  rsvpBy: "RSVP by",
+  contributions: "Admission levels",
+  sponsorLevels: "Sponsor levels",
+  contact: "Contact",
+  url: "Video link",
+  href: "Web address",
+  channel: "Station",
+};
+
+/** Format a zod issue as a friendly, non-technical sentence. */
+export function friendlyIssue(issue: {
+  path: (string | number)[];
+  message: string;
+}): string {
+  const root = String(issue.path[0] ?? "");
+  const label = FIELD_LABELS[root] ?? root;
+  return label ? `${label}: ${issue.message}` : issue.message;
+}
 const emptyToNull = <T extends z.ZodTypeAny>(schema: T) =>
   z.preprocess((v) => (v === "" ? null : v), schema.nullish());
 
 export const postInputSchema = z.object({
-  title: z.string().min(3).max(200),
+  title: z.string().min(3, "please enter a title").max(200),
   slug: slugStr,
-  topic: z.string().min(2).max(60),
+  topic: z.string().min(2, "please pick or type a category").max(60),
   status: z.enum(["draft", "published"]),
   featured: z.boolean().default(false),
   date: dateStr,
   author: z.string().min(2).max(80).default("Delegate Ryan Nawrocki"),
   excerpt: emptyToNull(z.string().max(600)),
   dek: emptyToNull(z.string().max(600)),
-  bodyHtml: z.string().min(1).max(200_000),
+  bodyHtml: z.string().min(8, "please write something in the body first").max(200_000),
   coverImage: emptyToNull(z.string().url()),
   coverAlt: emptyToNull(z.string().max(250)),
   coverPosition: emptyToNull(z.string().max(40)),
@@ -68,16 +112,16 @@ export const postInputSchema = z.object({
 export type PostInput = z.infer<typeof postInputSchema>;
 
 export const eventInputSchema = z.object({
-  title: z.string().min(3).max(200),
+  title: z.string().min(3, "please enter an event title").max(200),
   slug: slugStr,
   type: z.enum(["fundraiser", "town-hall", "community", "volunteer"]),
   status: z.enum(["draft", "published"]),
   featured: z.boolean().default(false),
   date: dateStr,
   time: emptyToNull(z.string().max(80)),
-  venue: z.string().min(2).max(200),
-  address: z.string().min(2).max(300),
-  summary: z.string().min(2).max(2000),
+  venue: z.string().min(2, "please enter the venue").max(200),
+  address: z.string().min(2, "please enter the address").max(300),
+  summary: z.string().min(2, "please write a short summary").max(2000),
   contributions: z.array(z.string().min(1).max(120)).max(10).nullish(),
   sponsorLevels: z.array(z.string().min(1).max(120)).max(10).nullish(),
   rsvpUrl: emptyToNull(z.string().url()),
