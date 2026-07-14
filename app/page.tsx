@@ -201,7 +201,7 @@ export default async function HomePage() {
                 from="up"
                 frameClassName="photo-frame aspect-[4/3] w-full"
                 imgClassName="h-full w-full object-cover"
-                objectPosition="center 42%"
+                objectPosition="center"
               />
               <div className="absolute -bottom-6 right-5 flex items-center gap-3 rounded-2xl bg-brand-navy px-5 py-3.5 shadow-[0_18px_40px_rgba(7,25,63,0.28)]">
                 <span className="font-display text-3xl font-extrabold text-brand-gold">
