@@ -1572,7 +1572,7 @@ body {
   .stat-figure {
     font-family: var(--font-display), Inter, sans-serif;
     font-weight: 800;
-    font-size: clamp(2.75rem, 4.6vw, 4rem);
+    font-size: clamp(3rem, 5vw, 4.5rem);
     line-height: 0.95;
     letter-spacing: -0.035em;
     color: #fff;

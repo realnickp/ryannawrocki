@@ -26,11 +26,9 @@ export function Header() {
   const darkHeroRoutes = [
     "/meet-ryan",
     "/priorities",
-    "/record",
     "/issues",
     "/events",
     "/contact",
-    "/scholarships",
     "/press",
     "/hb202",
     "/session-summary",

@@ -136,6 +136,16 @@ export function FaithGlyph(p: GlyphProps) {
   );
 }
 
+export function AgricultureGlyph(p: GlyphProps) {
+  return (
+    <Svg {...p}>
+      <path {...base} d="M12 21V9.5" />
+      <path {...base} d="M12 12.5c-3.2 0-5.2-2-5.2-5.2 3.2 0 5.2 2 5.2 5.2z" />
+      <path {...base} d="M12 9.8c3.2 0 5.2-2 5.2-5.2-3.2 0-5.2 2-5.2 5.2z" />
+    </Svg>
+  );
+}
+
 const PRIORITY_GLYPHS: Record<string, (p: GlyphProps) => JSX.Element> = {
   "lowering-the-cost-of-living": CostGlyph,
   "affordable-reliable-energy": EnergyGlyph,
@@ -146,7 +156,7 @@ const PRIORITY_GLYPHS: Record<string, (p: GlyphProps) => JSX.Element> = {
   "accountable-transparent-government": GovernmentGlyph,
   "strong-schools-opportunity": SchoolsGlyph,
   "first-responders-volunteer-fire-ems": ResponderGlyph,
-  "faith-family-community": FaithGlyph,
+  "championing-marylands-agriculture": AgricultureGlyph,
 };
 
 export function PriorityGlyph({

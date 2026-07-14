@@ -4,10 +4,8 @@ import { site } from "@/data/site";
 const footerNav = [
   { href: "/meet-ryan", label: "About" },
   { href: "/priorities", label: "Priorities" },
-  { href: "/record", label: "Record" },
   { href: "/issues", label: "Updates" },
   { href: "/events", label: "Events" },
-  { href: "/scholarships", label: "Scholarships" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -33,9 +31,7 @@ export function Footer() {
               className="h-16 w-auto"
             />
             <p className="mt-6 max-w-sm text-[15px] leading-relaxed text-brand-slate">
-              Committed to Maryland communities — fighting for safer
-              neighborhoods, stronger schools, and a better future for every
-              Marylander.
+              Help us keep fighting for Baltimore County.
             </p>
             <a
               href={site.donateUrl}

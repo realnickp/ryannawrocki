@@ -11,6 +11,7 @@ const schema = z.object({
   email: z.string().email("Please enter a valid email."),
   phone: z.string().optional().or(z.literal("")),
   subject: z.string().min(2, "Please choose a subject."),
+  interests: z.array(z.string()).optional(),
   message: z
     .string()
     .min(20, "Tell us a little more — at least 20 characters."),
@@ -29,6 +30,15 @@ const subjects = [
   "Other",
 ];
 
+const helpOptions = [
+  "Display a yard sign",
+  "Walk in a parade",
+  "Assist at events",
+  "Stuff envelopes",
+  "Knock on doors",
+  "Make phone calls",
+];
+
 export function ContactForm() {
   const {
     register,
@@ -40,10 +50,18 @@ export function ContactForm() {
 
   const onSubmit = async (data: FormValues) => {
     try {
+      const ways = data.interests?.length
+        ? `\n\nWays I'd like to help: ${data.interests.join(", ")}`
+        : "";
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, zip: "", topic: data.subject }),
+        body: JSON.stringify({
+          ...data,
+          message: `${data.message}${ways}`,
+          zip: "",
+          topic: data.subject,
+        }),
       });
       if (!res.ok) throw new Error("Bad response");
       setStatus("success");
@@ -112,6 +130,26 @@ export function ContactForm() {
           ))}
         </select>
       </Field>
+      <fieldset>
+        <span className="form-label">How would you like to help? (optional)</span>
+        <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          {helpOptions.map((opt) => (
+            <label
+              key={opt}
+              className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-brand-hairline bg-white px-3.5 py-2.5 text-[14px] text-brand-navy transition hover:border-brand-navy/40"
+            >
+              <input
+                type="checkbox"
+                value={opt}
+                {...register("interests")}
+                className="h-4 w-4 flex-shrink-0 accent-brand-maroon"
+              />
+              {opt}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
       <Field label="Message" error={errors.message?.message}>
         <textarea
           rows={7}

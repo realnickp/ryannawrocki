@@ -45,9 +45,10 @@ export function PriorityStack({ detailed = false }: { detailed?: boolean }) {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`/images/priorities/${p.slug}.png`}
+              src={p.image ?? `/images/priorities/${p.slug}.png`}
               alt=""
               loading="lazy"
+              style={p.imagePosition ? { objectPosition: p.imagePosition } : undefined}
             />
             <span className="pstack__num">{p.numeral}</span>
           </div>

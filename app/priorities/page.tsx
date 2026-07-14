@@ -45,7 +45,7 @@ export default function PrioritiesPage() {
             <Underline>District 7A</Underline>.
           </>
         }
-        lede="Every vote I take in Annapolis starts with one question: does it serve the people of eastern and northeastern Baltimore County? These are the priorities I've been fighting for — and the fights I'm taking into a second term."
+        lede="Every vote I take in Annapolis starts with one question: does it serve the people of Baltimore County? These are the priorities I've been fighting for — and the fights I'm taking into a second term."
         media={{
           src: "/images/670225829_1369014301711586_8348301270578710042_n.jpg",
           alt: "Ryan with colleagues on the floor of the Maryland House of Delegates",

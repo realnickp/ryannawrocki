@@ -12,7 +12,7 @@ import { VideoGallery, type Video } from "@/components/interior/VideoGallery";
 export const metadata: Metadata = {
   title: "News & Updates",
   description:
-    "Squatters and property rights. Power lines through our farmland. The flying mission at Martin State. The war on drivers. The latest from Annapolis — in Delegate Ryan Nawrocki's own words.",
+    "Squatters and property rights. Power lines through our farmland. The flying mission at Martin State. The war on drivers. The latest from Annapolis and across District 7A.",
 };
 
 function Arrow() {
@@ -72,7 +72,6 @@ function Meta({
 
 /** Ryan's TV appearances — labeled YouTube segments, sorted newest first. */
 const videos: Video[] = [
-  { id: "yuANn8nC6DU", channel: "FOX45", date: "2026-05-21", title: "Delegates Nawrocki and Szeliga endorse gubernatorial candidate Ed Hale" },
   { id: "_5idNwWCcwQ", channel: "FOX45", date: "2026-04-10", title: "Backing the BPD commissioner's criticism of juvenile ankle monitoring" },
   { id: "NnvIePnor8M", channel: "FOX45", date: "2026-04-08", title: "Juvenile records bill nears approval as IG-access proposal stalls in Annapolis" },
   { id: "pCAhCfvqtCU", channel: "FOX45", date: "2026-02-27", title: "Push for transparency: a bill to ensure Inspectors General can access documents" },
@@ -131,7 +130,7 @@ export default function IssuesIndex() {
             News &amp; <Underline>updates</Underline>.
           </>
         }
-        lede="The fights from the floor, the committee room, and the neighborhood — public safety, lower costs, reliable energy, and local control. Each piece below is published in the delegate's own words, with the receipts."
+        lede="The fights from the floor, the committee room, and the neighborhood — public safety, lower costs, reliable energy, and local control across District 7A."
         media={{
           src: "/images/642865957_1334736615139355_8979806438955097043_n.jpg",
           alt: "Ryan speaking at a Maryland Freedom Caucus press conference on lower electric bills",

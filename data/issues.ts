@@ -187,48 +187,6 @@ export const issues: Issue[] = [
     },
   },
   {
-    slug: "deer-management",
-    title: "A real plan for Baltimore County's deer problem.",
-    topic: "Local Issues",
-    date: "2025-01",
-    author: "Delegate Ryan Nawrocki",
-    readTime: "3 min read",
-    excerpt:
-      "My bill, HB173, requires Baltimore County to adopt a comprehensive deer-management plan — to cut down on crashes, crop and garden loss, and tick-borne disease.",
-    dek: "Deer overpopulation isn't just a nuisance — it's a public-safety, property, and public-health issue. HB173 directs Baltimore County to finally manage it with a real plan.",
-    body: [
-      "Talk to neighbors in Perry Hall, Kingsville, Glen Arm, or Baldwin and you will hear the same stories: totaled cars from deer darting across dark roads, vegetable gardens and landscaping stripped overnight, and a steady worry about ticks and Lyme disease. Deer overpopulation is a daily reality across District 7A, and for too long the response has been to do nothing.",
-      "That is why I introduced HB173, the Baltimore County Deer Management Program — Establishment, cosponsored by Delegate Kathy Szeliga. The bill requires Baltimore County to create a comprehensive deer-management plan for the lands it controls, rather than leaving residents to absorb the damage on their own.",
-      "This is a practical, three-part problem. There is a safety cost in vehicle collisions and the insurance bills and injuries that follow. There is a property cost as deer destroy gardens, crops, and landscaping that families pay good money to maintain. And there is a public-health cost in the tick-borne illnesses that track deer populations. A coordinated plan is simply better stewardship than pretending the problem will solve itself.",
-      "This is common-sense, locally-driven government: let the county manage its own land responsibly, with a plan that reflects what residents are actually living with. It's a small bill, but it speaks to a bigger principle — government should take the everyday concerns of its citizens seriously.",
-    ],
-    keyPoints: [
-      "HB173 requires Baltimore County to adopt a comprehensive deer-management plan for county lands.",
-      "Targets the real costs: vehicle crashes, property and crop damage, and tick-borne disease.",
-      "Cosponsored with Delegate Kathy Szeliga.",
-      "Common-sense, locally-driven stewardship of county land.",
-    ],
-    pullQuote:
-      "Deer overpopulation is a public-safety and property issue — and District 7A families have lived with it long enough.",
-    links: [
-      {
-        label: "HB173 — official bill page (Maryland General Assembly)",
-        href: "https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/hb0173?ys=2025RS",
-      },
-    ],
-    sources: [
-      {
-        label: "Baltimore County takes bold step toward addressing deer overpopulation",
-        href: "https://nottinghammd.com/2025/01/29/now-you-know-baltimore-county-takes-bold-step-toward-addressing-deer-overpopulation/",
-        publisher: "Nottingham MD",
-      },
-    ],
-    image: {
-      src: "/images/priorities/protecting-from-overdevelopment.png",
-      alt: "Open farmland and trees in Baltimore County",
-    },
-  },
-  {
     slug: "hb202-anti-squatters",
     title: "Maryland must protect property owners from squatters.",
     topic: "Housing & Property Rights",
@@ -414,54 +372,6 @@ export const issues: Issue[] = [
     },
   },
   {
-    slug: "immigration-and-public-safety",
-    title: "Public safety is not a political maneuver.",
-    topic: "Immigration & Public Safety",
-    date: "2024-06",
-    author: "Delegate Ryan Nawrocki",
-    readTime: "4 min read",
-    excerpt:
-      "When violent offenders are released without ICE cooperation, the public — and law enforcement — pay the price.",
-    dek: "When a convicted offender is released in defiance of a federal detainer, it isn't a statement about immigration policy — it's a danger to our neighborhoods and to the officers who then have to find that person again.",
-    body: [
-      "I firmly believe that public safety is not something that should ever be subject to political maneuvering. When a violent offender or sex offender is released after being detained — without honoring a request to cooperate with federal immigration authorities — there is real potential not only to endanger the public but to create more dangerous encounters for the law enforcement officers who will then have to locate that individual, often under far more volatile circumstances.",
-      "This is not a hypothetical for Baltimore County. In the spring of 2024, the county's Department of Corrections released a man who had pleaded guilty to a sexual offense and assault, even though Immigration and Customs Enforcement had lodged a detainer asking that he be held briefly so federal agents could take custody. He was let go, back into our community, instead of being held for the short window ICE requested. That case rightly alarmed families across the county.",
-      "Together with Delegate Kathy Szeliga, I sent a letter to the County Executive asking for a clear explanation of the county's policies on ICE detainers. Our point was simple and practical: a corrections department should be more than capable of holding a person who poses a documented threat to the public for the short amount of time it takes for federal authorities to act. This is about basic coordination between agencies whose shared job is to keep people safe.",
-      "The deeper problem is a set of policies that put the politics of immigration ahead of the safety of residents. Baltimore County's restrictions on cooperation trace back years, and the state has moved further in that direction — limiting the ability of local jurisdictions to work with ICE even in cases involving serious, convicted offenders. I understand the broader immigration debate is contentious. But there is a world of difference between that debate and the narrow, common-sense question of whether a county should hold a convicted violent or sexual offender for federal pickup. On that question, the answer should not be hard.",
-      "Supporting the rule of law and standing with the men and women of law enforcement are core to who I am and who I represent. The officers and troopers who serve eastern Baltimore County put themselves in harm's way every day. We owe them policies that don't needlessly send them back out to re-apprehend dangerous individuals who could have been handed off safely the first time. And we owe every family in District 7A a government whose first duty — keeping them safe — is never traded away for a political point.",
-    ],
-    keyPoints: [
-      "Honoring a federal detainer for a convicted violent or sex offender is a public-safety basic, not a policy statement.",
-      "Releasing dangerous offenders forces officers to re-apprehend them later in far more dangerous situations.",
-      "I joined Delegate Szeliga in demanding answers on Baltimore County's ICE-detainer policy after a 2024 release.",
-      "A corrections department can easily hold a documented threat for the short window federal authorities need.",
-      "Back the blue and uphold the rule of law — public safety must never be a political maneuver.",
-    ],
-    pullQuote:
-      "A jail can hold a convicted offender for the short time federal authorities need — refusing to do so endangers the public and our officers alike.",
-    sources: [
-      {
-        label: "ICE and Baltimore County modify policies after sex offender who entered U.S. illegally is released",
-        href: "https://www.baltimoresun.com/2024/06/06/fox45-ice-and-baltimore-county-modify-policies-after-sex-offender-who-entered-u-s-illegally-is-released/",
-        publisher: "The Baltimore Sun / FOX45",
-      },
-      {
-        label: "Baltimore County ignored directive to check detainers for illegal immigrant child sex offender",
-        href: "https://www.wjla.com/news/local/balt-county-ignored-directive-to-check-detainers-for-illegal-immigrant-child-sex-offender-johnny-olzsewski-jr-bmore-baltimore-unlawful-undocumented-crime-detainer-ice-immigration-border-maryland-news-rule-law-raul-calderon-interiano-jan-marshall-alexande",
-        publisher: "WJLA / ABC7",
-      },
-      {
-        label: "Baltimore County's sanctuary policy under fire after release of convicted offender",
-        href: "https://foxbaltimore.com/news/local/baltimore-countys-sanctuary-policy-under-fire-after-release-of-convicted-offender",
-        publisher: "FOX45 News Baltimore",
-      },
-    ],
-    image: {
-      src: "/images/686163538_1384120770200939_2104656477133690289_n.jpg",
-      alt: "Delegate Nawrocki with Senator and a Maryland State Trooper",
-    },
-  },
-  {
     slug: "housing-expansion-act",
     title: "Dangerous Baltimore County and State housing bills.",
     topic: "Housing",
@@ -473,7 +383,7 @@ export const issues: Issue[] = [
     dek: "Annapolis wants to override local zoning and strip away the very guardrails that make sure schools, roads, and infrastructure can keep up with new development — exactly the protections our community has been fighting to strengthen.",
     body: [
       "Governor Moore testified before the Environment and Transportation Committee — the committee on which I serve — to support his administration's bill, the Housing Expansion and Affordability Act of 2024 (HB538). During a controversial hearing, the Governor and other proponents faced difficult questions and challenges from committee members on both sides of the aisle. I asked pointed questions about what this legislation does to the guardrails that accompany an Adequate Public Facilities Ordinance (APFO) — the local rules that tie new development to whether our schools, roads, and infrastructure can actually handle it.",
-      "An APFO is not red tape for its own sake. It is the mechanism that protects families from overcrowded classrooms and gridlocked roads when builders want to put up more units than the surrounding infrastructure can support. In a fast-growing area like eastern and northeastern Baltimore County, those protections are essential. Strengthening them — not weakening them — is exactly what our community has been asking for.",
+      "An APFO is not red tape for its own sake. It is the mechanism that protects families from overcrowded classrooms and gridlocked roads when builders want to put up more units than the surrounding infrastructure can support. In a fast-growing area like Baltimore County, those protections are essential. Strengthening them — not weakening them — is exactly what our community has been asking for.",
       "That's what makes this so frustrating. Removing or overriding APFO protections is the opposite of what the Baltimore County delegation and the County Council have been requesting for years. In February 2023, the delegates penned a letter on this very issue to then-County Executive Johnny Olszewski and former Council Chairman Julian Jones — and never received a response. We have been sounding the alarm about infrastructure keeping pace with growth for a long time, and Annapolis has now chosen to move in the wrong direction.",
       "The core problem with the state's approach is that it takes zoning and land-use decisions out of local hands and centralizes them in Annapolis. I believe deeply in local control. The people who live in Perry Hall, White Marsh, Middle River, and Kingsville — and the local officials they elect — understand their own neighborhoods far better than a state mandate ever could. A one-size-fits-all density requirement imposed from above ignores the real differences between communities and the real limits of local infrastructure.",
       "I am not against housing or against young families being able to afford a home — far from it. But you don't make housing more affordable by steamrolling the safeguards that keep growth responsible. Affordability comes from reducing the taxes, fees, and regulatory costs that drive up the price of everything, and from letting communities plan growth that their schools and roads can actually support. Stripping local guardrails just shifts the costs onto existing residents and the very families this is supposed to help.",
@@ -617,59 +527,6 @@ export const issues: Issue[] = [
     image: {
       src: "/images/700625466_1394039969209019_537555043998327653_n.jpg",
       alt: "Delegate Nawrocki meeting with constituents alongside Delegate Szeliga",
-    },
-  },
-  {
-    slug: "rocket-lab-middle-river",
-    title: "Rocket Lab Space Structures Complex — Middle River’s next chapter.",
-    topic: "Economic Development",
-    date: "2023-11-17",
-    author: "Delegate Ryan Nawrocki",
-    readTime: "4 min read",
-    excerpt:
-      "Honored to attend the announcement of the new Space Structures Complex in Middle River.",
-    dek: "A global leader in space manufacturing chose Middle River — bringing skilled jobs and a new chapter that builds directly on our community's century of aviation heritage.",
-    body: [
-      "I was honored to be on hand for the announcement of Rocket Lab's new Space Structures Complex right here in Middle River. This is exactly the kind of economic news our community deserves — a world leader in the space industry choosing eastern Baltimore County as the place to build advanced products for spacecraft and rockets. It is a vote of confidence in our workforce, our location, and our future.",
-      "The new complex is being established in roughly 113,000 square feet at the former Lockheed Martin Vertical Launch Building on Eastern Boulevard. There, Rocket Lab plans to manufacture carbon-composite spacecraft structures, satellite dispensers, panels and assemblies, pressure vessels, and more — including structures that will support the company's larger Neutron launch vehicle. The company anticipated creating dozens of permanent, full-time jobs as the operation ramps up, with room to grow.",
-      "There is a powerful symmetry to this. Middle River was once the home of the Glenn L. Martin Company, where tens of thousands of workers built the aircraft that helped win World War II. That legacy of aerospace manufacturing is part of who we are. Now, a new generation of skilled men and women will once again build flight hardware in the very same community — this time for missions reaching into space. Our heritage isn't just history; it's a foundation for what comes next.",
-      "This is what good economic development looks like: high-skill, good-paying private-sector jobs, capital investment in an existing facility, and an employer that strengthens the tax base instead of leaning on it. When we make Maryland a place where innovative companies actually want to locate and grow, our families win — with opportunity close to home and careers that let the next generation stay and thrive in the community they grew up in.",
-      "My job is to keep working to make sure investments like this can take root and expand here. That means championing affordable energy, reasonable taxes and regulation, reliable infrastructure, and a skilled local workforce — the conditions that let employers like Rocket Lab succeed. I'm proud of what Middle River's next chapter looks like, and I'll keep fighting to write more chapters just like it for District 7A.",
-    ],
-    keyPoints: [
-      "A global space-industry leader chose Middle River — a major win for eastern Baltimore County.",
-      "The complex occupies ~113,000 sq ft at the former Lockheed Martin Vertical Launch Building.",
-      "It brings skilled, good-paying private-sector manufacturing jobs and new capital investment.",
-      "The site builds on Middle River's proud Glenn L. Martin aviation manufacturing heritage.",
-      "Keep Maryland competitive — affordable energy, sensible taxes, and a skilled workforce attract employers.",
-    ],
-    pullQuote:
-      "Tens of thousands once built warplanes here in Middle River — now a new generation will build flight hardware bound for space.",
-    sources: [
-      {
-        label: "Rocket Lab to establish Space Structures Complex in Baltimore County",
-        href: "https://commerce.maryland.gov/media/governor-moore-announces-rocket-lab-to-open-manufacturing-facility-in-baltimore-county",
-        publisher: "Maryland Department of Commerce",
-      },
-      {
-        label: "Rocket Lab brings manufacturing operations to Middle River",
-        href: "https://business.maryland.gov/news/rocket-lab-brings-manufacturing-operations-to-middle-river/",
-        publisher: "Maryland Department of Commerce",
-      },
-      {
-        label: "Rocket Lab to open spacecraft manufacturing complex in Middle River, MD",
-        href: "https://www.chesapeakebaymagazine.com/rocket-lab-to-open-spacecraft-manufacturing-complex-in-middle-river-md/",
-        publisher: "Chesapeake Bay Magazine",
-      },
-      {
-        label: "Rocket Lab to establish Space Structures Complex in Baltimore County",
-        href: "https://www.businesswire.com/news/home/20231117375156/en/Rocket-Lab-to-Establish-Space-Structures-Complex-in-Baltimore-County-to-Supply-Advanced-Composite-Products-Internally-and-to-Broader-Space-Industry",
-        publisher: "Business Wire",
-      },
-    ],
-    image: {
-      src: "/images/rocket-lab-space-complex.jpg",
-      alt: "Delegate Nawrocki with officials outside the former Lockheed Martin plant, now Rocket Lab's Space Structures Complex in Middle River",
     },
   },
 ];

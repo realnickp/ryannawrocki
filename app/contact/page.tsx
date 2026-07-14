@@ -84,10 +84,10 @@ export default function ContactPage() {
         }
         lede="Volunteer, order a yard sign, contribute, or just ask a question — there's a place for every neighbor in this campaign. Reach out and the team will get right back to you."
         media={{
-          src: "/images/638311408_1330022062277477_3320982621272389921_n.jpg",
-          alt: "Ryan at the Maryland State Board of Elections",
+          src: "/images/ryan-headshot-flag.jpg",
+          alt: "Delegate Ryan Nawrocki on the Baltimore County waterfront",
           aspect: "aspect-[4/5]",
-          objectPosition: "center 38%",
+          objectPosition: "center 20%",
         }}
       />
 

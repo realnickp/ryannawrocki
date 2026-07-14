@@ -15,8 +15,7 @@ import {
   BriefcaseGlyph,
   PinGlyph,
   CheckGlyph,
-  CostGlyph,
-  SchoolsGlyph,
+  CommunityShieldGlyph,
   FaithGlyph,
 } from "@/components/home/Glyphs";
 import { site } from "@/data/site";
@@ -65,17 +64,10 @@ const stats = [
   },
   {
     prefix: "$",
-    value: 100,
-    suffix: "K+",
-    label: "In legislative scholarships awarded each year",
-    Glyph: CostGlyph,
-  },
-  {
-    prefix: "",
-    value: 250,
-    suffix: "+",
-    label: "Scholarships awarded to District 7 students",
-    Glyph: SchoolsGlyph,
+    value: 18,
+    suffix: "M+",
+    label: "Secured for local fire & rescue companies",
+    Glyph: CommunityShieldGlyph,
   },
   {
     prefix: "$",
@@ -83,6 +75,13 @@ const stats = [
     suffix: "M+",
     label: "In state bond funding secured this year alone",
     Glyph: BriefcaseGlyph,
+  },
+  {
+    prefix: "",
+    value: 100,
+    suffix: "%",
+    label: "Of new tax & fee hikes opposed",
+    Glyph: CheckGlyph,
   },
 ];
 
@@ -106,6 +105,8 @@ const galleryRowA = [
   { src: "/images/701658114_1398120312134318_8447508087485607984_n.jpg", alt: "Ryan with a Girl Scouts of Central Maryland leader", position: "center 18%" },
   { src: "/images/641328756_1334733881806295_2224696825377124176_n.jpg", alt: "Delegate Nawrocki at a press briefing in Annapolis", position: "center 26%" },
   { src: "/images/589965019_1267314725214878_3925349742753260125_n.jpg", alt: "The Nawrocki family at a community event", position: "center 28%" },
+  { src: "/images/family-patio.jpg", alt: "The Nawrocki family together on the Baltimore County waterfront", position: "center 42%" },
+  { src: "/images/ryan-colleague.jpg", alt: "Ryan on the campaign trail across District 7A", position: "center 26%" },
 ];
 
 const galleryRowB = [
@@ -115,6 +116,7 @@ const galleryRowB = [
   { src: "/images/584546603_1262366352376382_7717335952773960812_n.jpg", alt: "Ryan at a press conference with the Maryland flag", position: "center 26%" },
   { src: "/images/680374620_1380667633879586_3268737700050580309_n.jpg", alt: "Ryan and his wife at a One Maryland One Shock Trauma event", position: "center 38%" },
   { src: "/images/577633690_1251974583415559_7591288720081703601_n.jpg", alt: "The Nawrocki family with the American and Maryland flags", position: "center 22%" },
+  { src: "/images/ryan-table-meeting.jpg", alt: "Ryan meeting with residents around the table", position: "center 45%" },
 ];
 
 const values = [
@@ -191,12 +193,12 @@ export default function HomePage() {
                 className="pointer-events-none absolute -right-6 -top-10 w-28 opacity-[0.10]"
               />
               <RevealImage
-                src="/images/2024-Nawrocki-Fam-long-scaled.jpg"
-                alt="Ryan Nawrocki with his family"
+                src="/images/family-waterfront.jpg"
+                alt="Ryan and Dr. Lauren Nawrocki with their six children on the Baltimore County waterfront"
                 from="up"
                 frameClassName="photo-frame aspect-[4/3] w-full"
                 imgClassName="h-full w-full object-cover"
-                objectPosition="center 30%"
+                objectPosition="center 42%"
               />
               <div className="absolute -bottom-6 right-5 flex items-center gap-3 rounded-2xl bg-brand-navy px-5 py-3.5 shadow-[0_18px_40px_rgba(7,25,63,0.28)]">
                 <span className="font-display text-3xl font-extrabold text-brand-gold">
@@ -283,9 +285,14 @@ export default function HomePage() {
                   <div className="priority-card__media">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={`/images/priorities/${p.slug}.png`}
+                      src={p.image ?? `/images/priorities/${p.slug}.png`}
                       alt=""
                       loading="lazy"
+                      style={
+                        p.imagePosition
+                          ? { objectPosition: p.imagePosition }
+                          : undefined
+                      }
                     />
                     <span className="priority-card__tag">{p.numeral}</span>
                   </div>

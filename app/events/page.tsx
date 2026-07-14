@@ -348,7 +348,7 @@ export default function EventsPage() {
                   community events.
                 </p>
                 <div className="mt-6 flex justify-center gap-4">
-                  <Link href="/contact" className="btn-maroon">
+                  <Link href="/contact#message" className="btn-maroon">
                     Join the List <Arrow />
                   </Link>
                 </div>
@@ -395,7 +395,7 @@ export default function EventsPage() {
             <span className="text-brand-gold">Just ask.</span>
           </>
         }
-        blurb="Civic association meetings, business roundtables, parish events — the office is happy to send Ryan or a staff member."
+        blurb="Civic association meetings, business roundtables, parish events — the campaign is happy to send Ryan or a team member."
       >
         <Link href="/contact" className="btn-maroon">
           Request an Appearance <Arrow />

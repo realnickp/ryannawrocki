@@ -92,12 +92,12 @@ export default function MeetRyanPage() {
           <div className="mt-12 grid items-start gap-12 md:grid-cols-[0.85fr_1.15fr] md:gap-14">
             <Reveal>
               <RevealImage
-                src="/images/476161168_1045596097386743_6346812120011350622_n.jpg"
-                alt="Ryan speaking with constituents at a District 7A town hall"
+                src="/images/ryan-lauren-portrait.jpg"
+                alt="Ryan and Dr. Lauren Nawrocki on the Baltimore County waterfront"
                 from="left"
                 frameClassName="photo-frame aspect-[4/5] w-full"
                 imgClassName="h-full w-full object-cover"
-                objectPosition="center 30%"
+                objectPosition="center 20%"
               />
             </Reveal>
 
@@ -148,12 +148,12 @@ export default function MeetRyanPage() {
           <div className="grid items-center gap-12 md:grid-cols-2 md:gap-14">
             <Reveal>
               <RevealImage
-                src="/images/666633152_1364758068803876_5967444482849672305_n.jpg"
-                alt="Ryan and Dr. Lauren Nawrocki with their six children"
+                src="/images/family-grass.jpg"
+                alt="Ryan and Dr. Lauren Nawrocki with their six children by the water"
                 from="up"
-                frameClassName="photo-frame aspect-[4/5] w-full"
+                frameClassName="photo-frame aspect-[4/3] w-full"
                 imgClassName="h-full w-full object-cover"
-                objectPosition="center 18%"
+                objectPosition="center 32%"
               />
             </Reveal>
             <Reveal delay={0.1}>
@@ -236,12 +236,12 @@ export default function MeetRyanPage() {
           <div className="grid items-center gap-12 md:grid-cols-2 md:gap-14">
             <Reveal delay={0.1} className="md:order-2">
               <RevealImage
-                src="/images/594837368_1273602047919479_5801360689140435190_n.jpg"
-                alt="Ryan and his children at a District 7A community parade"
+                src="/images/ryan-constituents.jpg"
+                alt="Ryan listening to constituents out in the community"
                 from="right"
                 frameClassName="photo-frame aspect-[4/3] w-full"
                 imgClassName="h-full w-full object-cover"
-                objectPosition="center 22%"
+                objectPosition="center 45%"
               />
             </Reveal>
             <Reveal className="md:order-1">

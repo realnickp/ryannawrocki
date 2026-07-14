@@ -4,7 +4,7 @@ export const site = {
   authorityLine: "Authority: Friends of Ryan Nawrocki, Lauren Nawrocki, Treasurer",
   brandPromise:
     "Husband. Father of 6. Small-business owner. Fighting for faith, freedom, and strong communities across Maryland.",
-  officePromise: "My office is here to serve you.",
+  officePromise: "I am here to serve you.",
   mailing: "P.O. Box 18194, Middle River, MD 21220",
   campaignPhone: "443-814-9640",
   campaignEmail: "ryan@ryannawrocki.com",
@@ -47,9 +47,7 @@ export const site = {
 export const nav = [
   { href: "/meet-ryan", label: "Meet Ryan" },
   { href: "/priorities", label: "Priorities" },
-  { href: "/record", label: "Record" },
   { href: "/issues", label: "Updates" },
   { href: "/events", label: "Events" },
-  { href: "/scholarships", label: "Scholarships" },
   { href: "/contact", label: "Contact" },
 ] as const;
