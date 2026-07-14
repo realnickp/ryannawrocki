@@ -114,7 +114,7 @@ const galleryRowA = [
 const galleryRowB = [
   { src: "/images/672672916_1370489128230770_8338417330306756349_n.jpg", alt: "Ryan at work at his desk on the State House floor", position: "center 22%" },
   { src: "/images/667893278_1364758075470542_4539519443582783821_n.jpg", alt: "The Nawrocki family at a community event", position: "center 20%" },
-  { src: "/images/685159083_1383746306905052_5733952956081640845_n.jpg", alt: "Ryan presenting a Maryland General Assembly citation", position: "center 30%" },
+  { src: "/images/685159083_1383746306905052_5733952956081640845_n.jpg", alt: "Ryan presenting a Maryland General Assembly citation", position: "center 8%" },
   { src: "/images/584546603_1262366352376382_7717335952773960812_n.jpg", alt: "Ryan at a press conference with the Maryland flag", position: "center 26%" },
   { src: "/images/680374620_1380667633879586_3268737700050580309_n.jpg", alt: "Ryan and his wife at a One Maryland One Shock Trauma event", position: "center 38%" },
   { src: "/images/577633690_1251974583415559_7591288720081703601_n.jpg", alt: "The Nawrocki family with the American and Maryland flags", position: "center 22%" },
