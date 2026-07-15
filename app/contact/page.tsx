@@ -186,6 +186,42 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* ── Newsletter signup (Constant Contact) ─────────── */}
+      <section id="newsletter" className="scroll-mt-24 tex-grid">
+        <div className="mx-auto max-w-[1180px] px-6 py-20 md:px-10 md:py-28">
+          <Reveal className="max-w-2xl">
+            <div className="gold-tick" />
+            <p className="eyebrow mt-5">Newsletter</p>
+            <h2 className="h-section mt-4">Get campaign updates by email.</h2>
+            <p className="lede mt-5">
+              Sign up below and Ryan&rsquo;s team will keep you posted on
+              events, endorsements, and news from the campaign trail.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1} className="mt-10">
+            <div className="card-soft flex flex-col items-start gap-6 p-8 md:flex-row md:items-center md:justify-between md:p-10">
+              <div>
+                <p className="font-display text-xl font-bold text-brand-navy">
+                  Join the campaign newsletter
+                </p>
+                <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-brand-slate">
+                  It takes ten seconds — just your name and email. Unsubscribe
+                  any time.
+                </p>
+              </div>
+              <a
+                href={site.newsletterUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-maroon flex-shrink-0"
+              >
+                Sign Up for Updates
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ── CTA band ─────────────────────────────────────── */}
       <CtaBand
         eyebrow="Stay Connected"

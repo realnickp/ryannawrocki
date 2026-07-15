@@ -40,6 +40,7 @@ export const site = {
     youtube: "https://www.youtube.com/channel/UCkZrn8AT1kHP4uS7uH2bhXg",
   },
   donateUrl: "https://secure.anedot.com/nawrocki/donate",
+  newsletterUrl: "https://lp.constantcontactpages.com/sl/yCQq01q/nawrocki",
   scholarshipEmail: "sanscholarshipcommittee07ab@gmail.com",
   mhecUrl: "https://www.mhec.state.md.us",
 } as const;
