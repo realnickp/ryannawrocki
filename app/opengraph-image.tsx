@@ -1,10 +1,11 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Delegate Ryan Nawrocki — District 7A";
+export const alt = "Ryan Nawrocki — Maryland State Delegate, District 7A";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/** Social share card — matches the current navy/gold/maroon brand. */
 export default function OG() {
   return new ImageResponse(
     (
@@ -14,20 +15,21 @@ export default function OG() {
           width: "100%",
           display: "flex",
           flexDirection: "column",
-          background: "#f7f3e8",
-          fontFamily: "Georgia, serif",
-          color: "#1a1408",
+          background: "#07193f",
+          color: "#ffffff",
           position: "relative",
         }}
       >
-        <div style={{ display: "flex", height: 6 }}>
-          <div style={{ flex: 1, background: "#ffd200" }} />
-          <div style={{ flex: 1, background: "#0a0a0a" }} />
-          <div style={{ flex: 1, background: "#c8102e" }} />
+        {/* Maryland-flag accent bar */}
+        <div style={{ display: "flex", height: 10 }}>
+          <div style={{ flex: 1, background: "#d9a441" }} />
+          <div style={{ flex: 1, background: "#8a1020" }} />
+          <div style={{ flex: 1, background: "#d9a441" }} />
         </div>
+
         <div
           style={{
-            padding: "72px",
+            padding: "76px 80px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -37,41 +39,53 @@ export default function OG() {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div
               style={{
-                fontSize: 18,
-                letterSpacing: 4,
+                fontSize: 22,
+                letterSpacing: 6,
                 textTransform: "uppercase",
-                color: "#7a6c48",
-                marginBottom: 24,
+                color: "#d9a441",
+                marginBottom: 28,
+                fontWeight: 700,
               }}
             >
               Maryland House of Delegates · District 7A
             </div>
             <div
               style={{
-                fontSize: 96,
-                lineHeight: 1.05,
-                fontWeight: 700,
-                letterSpacing: -2,
+                fontSize: 104,
+                lineHeight: 1.02,
+                fontWeight: 800,
+                letterSpacing: -3,
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              Delegate Ryan Nawrocki
+              <span>Ryan Nawrocki</span>
+            </div>
+            <div
+              style={{
+                marginTop: 26,
+                fontSize: 40,
+                fontWeight: 700,
+                color: "rgba(255,255,255,0.92)",
+              }}
+            >
+              Fighting for Baltimore County.
             </div>
           </div>
+
           <div
             style={{
               display: "flex",
               alignItems: "center",
               gap: 24,
               fontSize: 26,
-              color: "#3a2f1a",
+              color: "rgba(255,255,255,0.75)",
             }}
           >
-            <div style={{ width: 64, height: 1, background: "#b88c00" }} />
-            <span>
-              Showing up · Speaking up · Following through —{" "}
-              <span style={{ color: "#9a0c22", fontStyle: "italic" }}>
-                ryannawrocki.com
-              </span>
+            <div style={{ width: 64, height: 3, background: "#d9a441" }} />
+            <span>Husband · Father of Six · Small-Business Owner</span>
+            <span style={{ color: "#d9a441", fontWeight: 700 }}>
+              ryannawrocki.com
             </span>
           </div>
         </div>

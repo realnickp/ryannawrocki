@@ -32,6 +32,7 @@ export function FeatureBand({
         <img
           src={bgSrc}
           alt=""
+          loading="lazy"
           style={{ objectPosition: bgPosition, opacity: bgOpacity }}
         />
       </div>

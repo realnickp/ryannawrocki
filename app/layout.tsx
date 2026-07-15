@@ -47,6 +47,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Ryan Nawrocki — State Delegate, District 7A",
+    description:
+      "Maryland's voice for Eastern Baltimore County. Public safety, economic growth, government accountability.",
   },
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
@@ -63,38 +65,68 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const personJsonLd = {
+  // One linked entity graph: Person (the delegate) + Organization (the
+  // campaign committee) + WebSite. Value is Knowledge-Graph disambiguation
+  // and AI-search citation grounding, not rich snippets.
+  const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Ryan Nawrocki",
-    jobTitle: "State Delegate, Maryland House of Delegates",
-    affiliation: {
-      "@type": "GovernmentOrganization",
-      name: "Maryland House of Delegates",
-    },
-    address: {
-      "@type": "PostalAddress",
-      addressRegion: "MD",
-      addressCountry: "US",
-    },
-    url: site.url,
-    sameAs: [
-      site.social.facebook,
-      site.social.x,
-      site.social.instagram,
-      site.social.linkedin,
-      site.social.youtube,
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${site.url}/#person`,
+        name: "Ryan Nawrocki",
+        honorificPrefix: "Delegate",
+        url: `${site.url}/`,
+        image: `${site.url}/images/ryan-headshot-flag.jpg`,
+        jobTitle: "Maryland State Delegate, District 7A",
+        description:
+          "Ryan Nawrocki is a Maryland State Delegate representing District 7A in Baltimore County — a husband, father of six, and small-business owner focused on public safety, lower costs, and government accountability.",
+        memberOf: {
+          "@type": "GovernmentOrganization",
+          name: "Maryland House of Delegates",
+          url: "https://mgaleg.maryland.gov/",
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Middle River",
+          addressRegion: "MD",
+          addressCountry: "US",
+        },
+        sameAs: [
+          site.social.facebook,
+          site.social.x,
+          site.social.instagram,
+          site.social.linkedin,
+          site.social.youtube,
+        ],
+      },
+      {
+        "@type": "Organization",
+        "@id": `${site.url}/#organization`,
+        name: site.campaignName,
+        url: `${site.url}/`,
+        founder: { "@id": `${site.url}/#person` },
+        email: site.campaignEmail,
+        telephone: site.campaignPhone,
+        address: {
+          "@type": "PostalAddress",
+          postOfficeBoxNumber: "18194",
+          addressLocality: "Middle River",
+          addressRegion: "MD",
+          postalCode: "21220",
+          addressCountry: "US",
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${site.url}/#website`,
+        url: `${site.url}/`,
+        name: "Ryan Nawrocki — Maryland State Delegate, District 7A",
+        publisher: { "@id": `${site.url}/#organization` },
+        about: { "@id": `${site.url}/#person` },
+        inLanguage: "en-US",
+      },
     ],
-  };
-
-  const orgJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "GovernmentOrganization",
-    name: "Office of Delegate Ryan Nawrocki — District 7A",
-    url: site.url,
-    email: site.officeEmail,
-    telephone: site.officePhone,
-    areaServed: site.districtAreas.join(", "),
   };
 
   return (
@@ -105,11 +137,7 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className="bg-brand-paper text-brand-navy antialiased">

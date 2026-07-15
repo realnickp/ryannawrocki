@@ -28,7 +28,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
   if (!post) return { title: "Update not found" };
-  return { title: post.title, description: post.excerpt };
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: `/issues/${post.slug}` },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      publishedTime: post.date,
+      authors: [post.author],
+      images: post.image ? [{ url: post.image.src, alt: post.image.alt }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
+  };
 }
 
 function Arrow() {
@@ -82,8 +99,39 @@ export default async function IssuePage({ params }: { params: Params }) {
   const safe = sanitizeBodyHtml(post.bodyHtml);
   const [lead, rest] = splitHtmlAfterParagraphs(safe, 2);
 
+  // Per-article structured data — entity grounding for search & AI citation.
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    ...(post.image && {
+      image: [
+        post.image.src.startsWith("http")
+          ? post.image.src
+          : `${site.url}${post.image.src}`,
+      ],
+    }),
+    author: {
+      "@type": "Person",
+      name: "Ryan Nawrocki",
+      url: `${site.url}/meet-ryan`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: site.campaignName,
+      "@id": `${site.url}/#organization`,
+    },
+    mainEntityOfPage: `${site.url}/issues/${post.slug}`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* ── Hero band ─────────────────────────────────── */}
       <section className="page-hero pt-32 md:pt-40">
         <div className="mx-auto max-w-[860px] px-6 py-16 md:px-10 md:py-20">

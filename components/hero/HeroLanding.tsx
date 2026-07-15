@@ -46,7 +46,7 @@ export function HeroLanding() {
               <circle cx="103" cy="70" r="8.5" />
             </g>
           </svg>
-          <img src="/hero/flag.png" alt="" className="hero-art hero-art--flag" />
+          <img src="/hero/flag.webp" alt="" className="hero-art hero-art--flag" />
           <img
             src="/hero/card-1.jpg"
             alt="A District 7A neighborhood street at sunset"
@@ -68,7 +68,7 @@ export function HeroLanding() {
             className="hero-art hero-art--card3"
           />
           <img
-            src="/hero/ryan.png"
+            src="/hero/ryan.webp"
             alt="Delegate Ryan Nawrocki"
             className="hero-art hero-art--ryan"
           />

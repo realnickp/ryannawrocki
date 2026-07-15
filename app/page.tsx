@@ -167,10 +167,11 @@ export default async function HomePage() {
               <GoldRule />
             </div>
             <p className="lede mt-6">
-              Ryan Nawrocki is a husband, father of six, and small-business
-              owner who has spent his life in Baltimore County. In Annapolis he
-              fights for safer neighborhoods, lower costs, stronger schools, and
-              a government that answers to the people it serves.
+              Ryan Nawrocki is the Maryland State Delegate for District 7A — a
+              husband, father of six, and small-business owner who has spent
+              his life in Baltimore County. In Annapolis he fights for safer
+              neighborhoods, lower costs, stronger schools, and a government
+              that answers to the people it serves.
             </p>
             <div className="mt-7 flex flex-wrap gap-2.5">
               {credentials.map(({ label, Glyph }) => (
@@ -411,6 +412,7 @@ export default async function HomePage() {
                       <img
                         src={u.image.src}
                         alt={u.image.alt}
+                        loading="lazy"
                         className="h-full w-full object-cover"
                       />
                     </div>
