@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { POST } from "@/app/api/contact/route";
+import { parseRecipients } from "@/lib/contact";
 
 // No RESEND_API_KEY in the test env, so the route takes its dev-mode
 // path (validate, log, return ok) — these tests exercise validation
@@ -56,6 +57,25 @@ describe("contact route validation", () => {
   it("rejects a too-short message", async () => {
     const res = await post(humanPayload({ message: "too short" }));
     expect(res.status).toBe(400);
+  });
+});
+
+describe("parseRecipients", () => {
+  it("parses a comma-separated list, trimming whitespace", () => {
+    expect(
+      parseRecipients("ryan@ryannawrocki.com, info@legacylinqdigital.com"),
+    ).toEqual(["ryan@ryannawrocki.com", "info@legacylinqdigital.com"]);
+  });
+
+  it("parses a single address", () => {
+    expect(parseRecipients("one@example.com")).toEqual(["one@example.com"]);
+  });
+
+  it("treats blank and undefined as unset", () => {
+    expect(parseRecipients("")).toEqual([]);
+    expect(parseRecipients("  ")).toEqual([]);
+    expect(parseRecipients(undefined)).toEqual([]);
+    expect(parseRecipients(",")).toEqual([]);
   });
 });
 

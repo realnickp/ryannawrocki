@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
 import { site } from "@/data/site";
+import { parseRecipients } from "@/lib/contact";
 
 // Mirrors what components/ContactForm.tsx submits — keep the two in sync.
 const schema = z.object({
@@ -48,6 +49,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   }
 
+  const recipients = parseRecipients(process.env.CONTACT_NOTIFY_EMAIL);
+
   const resend = new Resend(key);
   try {
     // The SDK reports API rejections via `error`, not by throwing.
@@ -57,7 +60,7 @@ export async function POST(req: Request) {
       from:
         process.env.RESEND_FROM?.trim() ||
         "Ryan Nawrocki Website <nawrocki-site@legacylinqdigital.com>",
-      to: [process.env.CONTACT_NOTIFY_EMAIL?.trim() || site.officeEmail],
+      to: recipients.length ? recipients : [site.officeEmail],
       replyTo: email,
       subject: `[Site] ${topic} — ${name}`,
       text: [
