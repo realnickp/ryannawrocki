@@ -3,10 +3,11 @@ import { z } from "zod";
 import { Resend } from "resend";
 import { site } from "@/data/site";
 
+// Mirrors what components/ContactForm.tsx submits — keep the two in sync.
 const schema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
-  zip: z.string().min(5).max(10),
+  phone: z.string().max(30).optional().or(z.literal("")),
   topic: z.string().min(1),
   message: z.string().min(20),
 });
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
   }
-  const { name, email, zip, topic, message } = parsed.data;
+  const { name, email, phone, topic, message } = parsed.data;
 
   const key = process.env.RESEND_API_KEY;
   // In dev (no key configured), log and succeed so the UI can be exercised.
@@ -37,8 +38,16 @@ export async function POST(req: Request) {
         "Ryan Nawrocki Website <nawrocki-site@legacylinqdigital.com>",
       to: [process.env.CONTACT_NOTIFY_EMAIL ?? site.officeEmail],
       replyTo: email,
-      subject: `[Site] ${topic} — ${name} (${zip})`,
-      text: `From: ${name} <${email}>\nZIP: ${zip}\nTopic: ${topic}\n\n${message}`,
+      subject: `[Site] ${topic} — ${name}`,
+      text: [
+        `From: ${name} <${email}>`,
+        phone ? `Phone: ${phone}` : null,
+        `Topic: ${topic}`,
+        "",
+        message,
+      ]
+        .filter((line) => line !== null)
+        .join("\n"),
     });
     if (error) {
       console.error("[contact] resend error", error);

@@ -59,7 +59,6 @@ export function ContactForm() {
         body: JSON.stringify({
           ...data,
           message: `${data.message}${ways}`,
-          zip: "",
           topic: data.subject,
         }),
       });
