@@ -39,7 +39,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const key = process.env.RESEND_API_KEY;
+  // `|| fallback` (not ??) everywhere below: a var saved as an empty string
+  // in Vercel must behave like an unset var, not get sent to Resend.
+  const key = process.env.RESEND_API_KEY?.trim();
   // In dev (no key configured), log and succeed so the UI can be exercised.
   if (!key) {
     console.info("[contact] dev-mode submission", parsed.data);
@@ -53,9 +55,9 @@ export async function POST(req: Request) {
       // Must be an address on a Resend-verified domain; we have no DNS access
       // to ryannawrocki.com, so we send from the agency's verified domain.
       from:
-        process.env.RESEND_FROM ??
+        process.env.RESEND_FROM?.trim() ||
         "Ryan Nawrocki Website <nawrocki-site@legacylinqdigital.com>",
-      to: [process.env.CONTACT_NOTIFY_EMAIL ?? site.officeEmail],
+      to: [process.env.CONTACT_NOTIFY_EMAIL?.trim() || site.officeEmail],
       replyTo: email,
       subject: `[Site] ${topic} — ${name}`,
       text: [
