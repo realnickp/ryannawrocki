@@ -10,7 +10,14 @@ const schema = z.object({
   phone: z.string().max(30).optional().or(z.literal("")),
   topic: z.string().min(1),
   message: z.string().min(20),
+  // Bot traps: `company` is an off-screen honeypot humans never see;
+  // `elapsedMs` is how long the visitor had the form open before submitting.
+  company: z.string().optional(),
+  elapsedMs: z.number().optional(),
 });
+
+// No human completes name + email + subject + a 20-char message this fast.
+const MIN_FILL_MS = 4000;
 
 export async function POST(req: Request) {
   const json = await req.json().catch(() => null);
@@ -18,7 +25,19 @@ export async function POST(req: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
   }
-  const { name, email, phone, topic, message } = parsed.data;
+  const { name, email, phone, topic, message, company, elapsedMs } =
+    parsed.data;
+
+  // Filled honeypot, missing timing (direct POST), or an impossibly fast
+  // fill all mean a bot. Fake success so it doesn't learn and retry.
+  if (company || typeof elapsedMs !== "number" || elapsedMs < MIN_FILL_MS) {
+    console.warn("[contact] flagged suspected bot submission", {
+      email,
+      elapsedMs,
+      honeypotFilled: Boolean(company),
+    });
+    return NextResponse.json({ ok: true });
+  }
 
   const key = process.env.RESEND_API_KEY;
   // In dev (no key configured), log and succeed so the UI can be exercised.

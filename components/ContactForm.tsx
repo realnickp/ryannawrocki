@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -12,6 +12,8 @@ const schema = z.object({
   phone: z.string().optional().or(z.literal("")),
   subject: z.string().min(2, "Please choose a subject."),
   interests: z.array(z.string()).optional(),
+  // Honeypot — off-screen, humans never fill it.
+  company: z.string().optional(),
   message: z
     .string()
     .min(20, "Tell us a little more — at least 20 characters."),
@@ -47,6 +49,8 @@ export function ContactForm() {
     reset,
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  // When the visitor opened the form — the API flags impossibly fast fills.
+  const startedAt = useRef(Date.now());
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -60,6 +64,7 @@ export function ContactForm() {
           ...data,
           message: `${data.message}${ways}`,
           topic: data.subject,
+          elapsedMs: Date.now() - startedAt.current,
         }),
       });
       if (!res.ok) throw new Error("Bad response");
@@ -87,6 +92,22 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+      {/* Honeypot: off-screen, skipped by keyboard/screen readers; humans
+          never fill it, autofill bots do. */}
+      <div
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", top: "auto" }}
+      >
+        <label>
+          Company
+          <input
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            {...register("company")}
+          />
+        </label>
+      </div>
       <Field label="Name" error={errors.name?.message}>
         <input
           type="text"
