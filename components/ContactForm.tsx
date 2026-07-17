@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -51,6 +51,20 @@ export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   // When the visitor opened the form — the API flags impossibly fast fills.
   const startedAt = useRef(Date.now());
+  const confirmRef = useRef<HTMLDivElement>(null);
+
+  // The tall form collapses into a short card on success; without this the
+  // visitor can be left scrolled past it, never seeing the confirmation.
+  useEffect(() => {
+    if (status !== "success") return;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    confirmRef.current?.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "center",
+    });
+  }, [status]);
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -77,7 +91,10 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-brand-hairline bg-brand-paper2 p-8">
+      <div
+        ref={confirmRef}
+        className="rounded-xl border border-brand-hairline bg-brand-paper2 p-8"
+      >
         <p className="eyebrow">Message Received</p>
         <p className="mt-4 font-display text-xl font-bold text-brand-navy">
           We&rsquo;ll be in touch.
