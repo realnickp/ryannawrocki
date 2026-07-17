@@ -28,13 +28,22 @@ export async function POST(req: Request) {
 
   const resend = new Resend(key);
   try {
-    await resend.emails.send({
-      from: "Friends of Ryan Nawrocki <no-reply@ryannawrocki.com>",
-      to: [site.officeEmail],
+    // The SDK reports API rejections via `error`, not by throwing.
+    const { error } = await resend.emails.send({
+      // Must be an address on a Resend-verified domain; we have no DNS access
+      // to ryannawrocki.com, so we send from the agency's verified domain.
+      from:
+        process.env.RESEND_FROM ??
+        "Ryan Nawrocki Website <nawrocki-site@legacylinqdigital.com>",
+      to: [process.env.CONTACT_NOTIFY_EMAIL ?? site.officeEmail],
       replyTo: email,
       subject: `[Site] ${topic} — ${name} (${zip})`,
       text: `From: ${name} <${email}>\nZIP: ${zip}\nTopic: ${topic}\n\n${message}`,
     });
+    if (error) {
+      console.error("[contact] resend error", error);
+      return NextResponse.json({ error: "Send failed" }, { status: 500 });
+    }
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("[contact] resend error", e);
