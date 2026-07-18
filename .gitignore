@@ -15,3 +15,5 @@ tsconfig.tsbuildinfo
 
 # heavy unused source video (site uses public/hero/hero-clip.mp4 instead)
 public/videos/hero.mp4
+
+.vercel
