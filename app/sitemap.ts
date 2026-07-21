@@ -15,6 +15,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/contact",
     "/donate",
     "/session-summary/2024",
+    "/privacy-policy",
+    "/terms",
   ];
 
   const posts = await getPublishedPosts();

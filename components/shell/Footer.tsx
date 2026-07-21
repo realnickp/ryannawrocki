@@ -109,16 +109,30 @@ export function Footer() {
           </p>
           <p>{site.authorityLine}</p>
         </div>
-        <div className="mt-3 flex items-center justify-between gap-4">
+        <div className="mt-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <p className="text-xs text-brand-slate/60">{site.mailing}</p>
-          {/* Barely-visible campaign-admin entrance */}
-          <Link
-            href="/admin"
-            className="text-[10px] text-brand-slate/25 transition-colors hover:text-brand-slate/60"
-            aria-label="Campaign admin sign in"
-          >
-            Admin
-          </Link>
+          <div className="flex items-center gap-5">
+            <Link
+              href="/privacy-policy"
+              className="text-xs text-brand-slate/60 transition-colors hover:text-brand-maroon"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-xs text-brand-slate/60 transition-colors hover:text-brand-maroon"
+            >
+              Terms &amp; Conditions
+            </Link>
+            {/* Barely-visible campaign-admin entrance */}
+            <Link
+              href="/admin"
+              className="text-[10px] text-brand-slate/25 transition-colors hover:text-brand-slate/60"
+              aria-label="Campaign admin sign in"
+            >
+              Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
