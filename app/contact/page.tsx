@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { site } from "@/data/site";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Underline } from "@/components/home/Underline";
@@ -199,24 +200,20 @@ export default function ContactPage() {
             </p>
           </Reveal>
           <Reveal delay={0.1} className="mt-10">
-            <div className="card-soft flex flex-col items-start gap-6 p-8 md:flex-row md:items-center md:justify-between md:p-10">
-              <div>
-                <p className="font-display text-xl font-bold text-brand-navy">
-                  Join the campaign newsletter
-                </p>
-                <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-brand-slate">
-                  It takes ten seconds — just your name and email. Unsubscribe
-                  any time.
-                </p>
-              </div>
-              <a
-                href={site.newsletterUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-maroon flex-shrink-0"
-              >
-                Sign Up for Updates
-              </a>
+            <div className="card-soft max-w-[680px] p-8 md:p-10">
+              <NewsletterSignup />
+              {/* Signup still works if the Constant Contact script is
+                  blocked: fall back to the hosted landing page. */}
+              <noscript>
+                <a
+                  href={site.newsletterUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-maroon"
+                >
+                  Sign Up for Updates
+                </a>
+              </noscript>
             </div>
           </Reveal>
         </div>

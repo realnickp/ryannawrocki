@@ -3087,3 +3087,14 @@ body {
   border-radius: 10px;
   pointer-events: none; /* select/delete the block, don't play inline */
 }
+
+/* ── Constant Contact widget ────────────────────────────── */
+/* The account has a pop-up form ACTIVE alongside the inline form we embed
+   on /contact, and the widget script offers no way to render one without
+   the other. We only want the inline form, so the pop-up (an overlay div
+   the widget appends to <body>) is suppressed here. If the pop-up is ever
+   wanted, deactivate this rule AND re-check the form config in the CC
+   dashboard. */
+.ctct-popup-form {
+  display: none !important;
+}
